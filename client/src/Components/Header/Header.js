@@ -1,26 +1,24 @@
-import "./Header.css";
 import { Link } from "react-router-dom";
-
+import "./Header.css";
+import logo from "../../assets/cyf_brand .png";
 
 const Header = () => {
-  return (
+	return (
 		<nav>
-			<div>
-				<img src="../../Assets/cyf_brand .png" alt="logo" />
-			</div>
-			<div className="nav-center">
-				<ul className={"links"}>
+			<div className="nav-logo-container">
+				<div>
+					<img src={logo} alt="logo" className="nav-logo" />
+				</div>
+				<ul className="nav-links">
 					<li>
 						<Link to="/">Home</Link>
 					</li>
 					<li>
 						<Link to="/about">About</Link>
 					</li>
-					<li>
-					<button>Login With Github</button>
-					</li>
 				</ul>
 			</div>
+			<button>Login With Github</button>
 		</nav>
 	);
 };

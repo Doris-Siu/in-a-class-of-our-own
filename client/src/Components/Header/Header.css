@@ -1,0 +1,29 @@
+
+nav{
+    padding: 20px;
+}
+
+.nav-logo-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-links{
+    display: flex;
+    gap: 20px;
+  
+}
+
+.nav-links li {
+      list-style: none;
+      
+}
+.nav-links li a {
+      text-decoration: none;
+      
+}
+
+.nav-logo{
+    width: 100px;
+}
