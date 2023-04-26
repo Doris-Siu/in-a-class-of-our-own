@@ -1,18 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&display=swap");
 
 :root {
-  --black: #231F20;
-  --white: #fff;
-  --red: #EE4344;
-  --grey:#F2EFF0;
+	--black: #231f20;
+	--white: #fff;
+	--red: #ee4344;
+	--grey: #f2eff0;
 }
 
 *,
 ::after,
 ::before {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Lato', sans-serif;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Lato", sans-serif;
 }
-
