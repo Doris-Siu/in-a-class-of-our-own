@@ -33,6 +33,11 @@ nav {
 	color: var(--red);
 }
 
+/* ACTIVE LINK */
+.nav-links a.active {
+  color: var(--red);
+}
+
 .btn-menu {
 	font-size: 1.6rem;
 }
