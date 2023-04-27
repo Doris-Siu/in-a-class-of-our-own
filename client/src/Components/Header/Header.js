@@ -1,4 +1,4 @@
-import { NavLink,Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import logo from "../../assets/cyf_brand .png";
 import { FaBars, FaGithub } from "react-icons/fa";
 import "./Header.css";
@@ -50,13 +50,13 @@ const Header = () => {
 				} hidden-navlinks`}
 			>
 				<li>
-					<Link to="/">Home</Link>
+					<NavLink to="/">Home</NavLink>
 				</li>
 				<li>
-					<Link to="/about">About CYF</Link>
+					<NavLink to="/about">About CYF</NavLink>
 				</li>
 				<li>
-					<Link to="/app">Application Info</Link>
+					<NavLink to="/app">Application Info</NavLink>
 				</li>
 				<li>
 					<button>
