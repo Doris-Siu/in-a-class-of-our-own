@@ -1,46 +1,59 @@
+@import url("../../pages/Home.css");
 
-nav{
-    padding: 20px 30px;
-     display: flex;
-    justify-content: space-between;
+nav {
+	padding: 20px 30px;
+	display: flex;
+	justify-content: space-between;
 }
 
-
-.nav-logo{
-    width: 200px;
+.nav-logo {
+	width: 200px;
 }
 
-.nav-links{
-    display: none;
-    gap: 20px;
-  
+.nav-links {
+	display: none;
+	gap: 20px;
+	padding-top: 10px;
 }
 
 .nav-links li {
-      list-style: none;
-      
+	list-style: none;
 }
-.nav-links li a {
-      text-decoration: none;
-      
+.nav-links li a,
+.nav-links button {
+	text-decoration: none;
+	font-weight: 600;
+	color: var(--black);
 }
 
+.nav-links li a:hover,
+.nav-links button:hover {
+	transition: color 0.3s;
+	color: var(--red);
+}
+
+.nav-links button {
+	font-size: 20px;
+}
+
+.btn-menu {
+	font-size: 1.6rem;
+}
 
 @media only screen and (min-width: 900px) {
-nav{
-    padding: 40px 70px 40px 70px;
-   
-}
+	nav {
+		padding: 40px 70px 40px 70px;
+	}
 
-.nav-links{
-    display: flex;
-}
+	.nav-links {
+		display: flex;
+	}
 
-nav > button {
-    display: none;
-}
+	.btn-menu {
+		display: none;
+	}
 
-.nav-logo{
-    width: 200px;
-}
+	.nav-logo {
+		width: 200px;
+	}
 }
