@@ -1,15 +1,54 @@
 import { Link } from "react-router-dom";
 import logo from "../../assets/cyf_brand .png";
-import { FaBars } from "react-icons/fa";
+import { FaBars, FaGithub } from "react-icons/fa";
 import "./Header.css";
+import { useState } from "react";
 
 const Header = () => {
+	const [showLinks, setShowLinks] = useState(false);
+	const [rotate, setRotate] = useState(false);
+
+
+	function openHiddenLinks() {
+		setRotate(!rotate);
+		setShowLinks(!showLinks);
+	}
+
 	return (
 		<nav>
-			<div>
-				<img src={logo} alt="logo" className="nav-logo" />
+			<div className="nav-container">
+				<div>
+					<img src={logo} alt="logo" className="nav-logo" />
+				</div>
+				<ul className="nav-links">
+					<li>
+						<Link to="/">Home</Link>
+					</li>
+					<li>
+						<Link to="/about">About CYF</Link>
+					</li>
+					<li>
+						<Link to="/app">Application Info</Link>
+					</li>
+					<li>
+						<button>
+							Github Login
+							<FaGithub />
+						</button>
+					</li>
+				</ul>
+				<button
+					className={`btn-menu ${rotate ? "rotate" : "return"}`}
+					onClick={openHiddenLinks}
+				>
+					<FaBars />
+				</button>
 			</div>
-			<ul className="nav-links">
+			<ul
+				className={`nav-links ${
+					showLinks ? "show-navlinks" : undefined
+				} hidden-navlinks`}
+			>
 				<li>
 					<Link to="/">Home</Link>
 				</li>
@@ -20,12 +59,12 @@ const Header = () => {
 					<Link to="/app">Application Info</Link>
 				</li>
 				<li>
-					<button>Login With Github</button>
+					<button>
+						Github Login
+						<FaGithub />
+					</button>
 				</li>
 			</ul>
-			<button className="btn-menu">
-				<FaBars />
-			</button>
 		</nav>
 	);
 };
