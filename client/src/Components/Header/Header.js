@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import "./Header.css";
 import logo from "../../assets/cyf_brand .png";
+import { FaBars } from "react-icons/fa";
+
 
 const Header = () => {
 	return (
@@ -18,9 +20,13 @@ const Header = () => {
 				<li>
 					<Link to="/app">Application Info</Link>
 				</li>
-				<li><button>Login With Github</button></li>
+				<li>
+					<button>Login With Github</button>
+				</li>
 			</ul>
-
+			<button>
+				<FaBars />
+			</button>
 		</nav>
 	);
 };
