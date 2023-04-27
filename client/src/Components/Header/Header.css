@@ -1,0 +1,134 @@
+@import url("../../pages/Home.css");
+
+nav {
+	padding: 20px 30px;
+	border-bottom: solid 4px var(--red);
+}
+
+.nav-container {
+	display: flex;
+	justify-content: space-between;
+}
+
+.nav-logo {
+	width: 200px;
+}
+
+.nav-links {
+	display: none;
+}
+
+.nav-links li {
+	list-style: none;
+}
+.nav-links li a,
+.nav-links button {
+	text-decoration: none;
+	font-weight: 700;
+	color: var(--black);
+}
+
+.nav-links li a:hover {
+	transition: color 0.3s;
+	color: var(--red);
+}
+
+/* ACTIVE LINK */
+.nav-links a.active {
+  color: var(--red);
+}
+
+.btn-menu {
+	font-size: 1.6rem;
+}
+
+/* SHOW NAV LINKS ON SMALL SCREENS */
+/* menu-btn */
+.rotate {
+	transform: rotate(180deg);
+	transition: all 0.3s linear;
+}
+.return {
+	transform: rotate(-180deg);
+	transition: all 0.3s linear;
+}
+
+/* LINKS */
+
+.show-navlinks {
+	display: flex;
+	flex-direction: column;
+    margin: 20px 0 20px 20px;
+    gap: 20px;
+    font-size: 26px;
+}
+
+/* GITHUB BTN */
+
+.nav-links button {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	text-transform: uppercase;
+	outline: none;
+	font-size: 18px;
+	-webkit-transform: translate(0);
+	transform: translate(0);
+	background-image: linear-gradient(45deg, var(--red), var(--grey));
+	padding: 0.7em 1.2em;
+	border-radius: 45px;
+	box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.438);
+	-webkit-transition: box-shadow 0.25s;
+	transition: box-shadow 0.25s;
+	color: var(--white);
+}
+
+.nav-links button .text {
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-image: linear-gradient(45deg, var(--red), var(--grey));
+}
+
+.nav-links button:after {
+	content: "";
+	border-radius: 45px;
+	position: absolute;
+	margin: 4px;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	z-index: -1;
+	background: var(--black);
+}
+
+.nav-links button:hover {
+	background-image: linear-gradient(-45deg, var(--red), var(--grey));
+	box-shadow: 0 12px 24px rgba(128, 128, 128, 0.1);
+}
+
+@media only screen and (min-width: 900px) {
+	nav {
+		padding: 20px 40px 20px 40px;
+	}
+
+	.nav-links {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 34px;
+	}
+
+	.hidden-navlinks {
+		display: none;
+	}
+
+	.btn-menu {
+		display: none;
+	}
+
+	.nav-logo {
+		width: 200px;
+	}
+}
