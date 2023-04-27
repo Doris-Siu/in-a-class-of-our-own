@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import logo from "../../assets/cyf_brand .png";
+import logo from "../../Assets/cyf_brand.png";
 import { FaBars, FaGithub } from "react-icons/fa";
 import "./Header.css";
 import { useState } from "react";
@@ -7,7 +7,6 @@ import { useState } from "react";
 const Header = () => {
 	const [showLinks, setShowLinks] = useState(false);
 	const [rotate, setRotate] = useState(false);
-
 
 	function openHiddenLinks() {
 		setRotate(!rotate);
