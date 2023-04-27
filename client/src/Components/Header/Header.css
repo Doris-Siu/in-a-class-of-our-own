@@ -1,16 +1,17 @@
 
 nav{
-    padding: 40px;
-}
-
-.nav-logo-container{
-    display: flex;
-    align-items: center;
+    padding: 20px 30px;
+     display: flex;
     justify-content: space-between;
 }
 
+
+.nav-logo{
+    width: 200px;
+}
+
 .nav-links{
-    display: flex;
+    display: none;
     gap: 20px;
   
 }
@@ -24,12 +25,22 @@ nav{
       
 }
 
-.nav-logo{
-    width: 100px;
-}
 
 @media only screen and (min-width: 900px) {
 nav{
     padding: 40px 70px 40px 70px;
+   
+}
+
+.nav-links{
+    display: flex;
+}
+
+nav > button {
+    display: none;
+}
+
+.nav-logo{
+    width: 200px;
 }
 }
