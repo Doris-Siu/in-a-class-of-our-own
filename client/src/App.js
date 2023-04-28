@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import About from "./pages/About/About";
 import Home from "./pages/Home";
 import Header from "./Components/Header/Header";
-import ApplicationInfo from "./pages/ApplicationInfo";
+import ApplicationInfo from "./pages/App-info/ApplicationInfo";
 
 const App = () => (
 	<>

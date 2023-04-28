@@ -1,0 +1,25 @@
+@import url("../../pages/Home.css");
+
+.main-container {
+	padding: 10px;
+}
+
+.app-intro {
+	padding-top: 8px;
+}
+
+.app-function {
+	padding-top: 15px;
+	padding-bottom: 15px;
+	font-weight: bold;
+}
+
+@media only screen and (min-width: 900px) {
+	.main-container {
+		padding: 80px;
+	}
+
+	.app-function {
+		padding-top: 50px;
+	}
+}
