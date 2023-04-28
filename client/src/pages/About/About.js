@@ -23,7 +23,7 @@ const About = () => (
 					tlr and WeGotPop.
 				</p>
 			</div>
-			<div>
+			<div className="img-container">
 				<img className="class-img" src={classImg} alt="class" />
 			</div>
 		</div>
