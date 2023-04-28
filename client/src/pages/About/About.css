@@ -1,0 +1,44 @@
+@import url("../../pages/Home.css");
+
+.main-conatianer {
+	padding: 10px;
+}
+
+.class-img {
+	margin-top: 20px;
+	width: 100%;
+}
+
+.text-conatiner p:nth-child(2) {
+	font-weight: bolder;
+	margin: 20px 0 40px;
+}
+
+.text-conatiner p:nth-child(3) {
+	line-height: 1.4rem;
+}
+
+@media only screen and (min-width: 1100px) {
+	.main-conatianer {
+		padding: 80px;
+	}
+
+	.about-container {
+		display: flex;
+		gap: 70px;
+	}
+
+	.class-img {
+		width: 100%;
+	}
+
+	.text-conatiner {
+		width: 50%;
+	}
+
+	.img-container {
+        display: flex;
+        align-items: center;
+		width: 50%;
+	}
+}
