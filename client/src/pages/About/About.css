@@ -1,0 +1,23 @@
+@import url("../../pages/Home.css");
+
+.main-conatianer{
+    padding: 140px;
+}
+
+.about-container{
+    display: flex;
+    gap: 70px;
+}
+
+.class-img{
+    width: 800px;
+}
+
+.text-conatiner p:nth-child(2){
+font-weight: bolder;
+margin: 20px 0 50px;
+}
+
+.text-conatiner p:nth-child(3){
+line-height: 1.4rem;
+}
