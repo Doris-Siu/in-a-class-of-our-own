@@ -2,6 +2,8 @@
 
 .sidebar {
 	grid-area: side;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
 }
 
 .sidebar-head {
@@ -27,10 +29,6 @@
 	justify-content: space-around;
 }
 
-.side-links ul li {
-	padding: 0;
-}
-
 .side-links li a {
 	text-decoration: none;
 	color: var(--black);
@@ -43,16 +41,20 @@
 }
 
 @media only screen and (min-width: 900px) {
+	.sidebar-head h2 {
+		padding-top: 0;
+	}
+
 	.side-links {
-		padding-left: 20px;
+		padding-left: 60px;
 		margin-top: 50px;
 		flex-direction: column;
 		gap: 40px;
 	}
 
-	.sidebar, .side-links li a {
+	.sidebar,
+	.side-links li a {
 		background-color: var(--black);
 		color: var(--white);
 	}
-
 }

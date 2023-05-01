@@ -10,7 +10,6 @@ const Sidebar = () => {
 				<h2>user name</h2>
 				<h6>cohort name</h6>
 			</div>
-			<ul>
 				<ul className="side-links">
 					<li>
 						<NavLink to="overview">Overview</NavLink>
@@ -22,7 +21,6 @@ const Sidebar = () => {
 						<NavLink to="cyf-milestone">CYF Milestone</NavLink>
 					</li>
 				</ul>
-			</ul>
 		</div>
 	);
 };

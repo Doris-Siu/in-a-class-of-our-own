@@ -1,17 +1,17 @@
-
-
+.dashboard {
+	background-color: #f4f3ef;
+}
 
 @media only screen and (min-width: 900px) {
-.dashboard{
-    height: 100vh;
-    display: grid;
-    grid-template-columns: 360px 1fr;
-    grid-template-rows: 100px 1fr;
-  grid-template-areas: 
-  "side head head head"
-  "side main main main"
-  "side main main main"
-  "side main main main";
-}
- 
+	.dashboard {
+		height: 100vh;
+		display: grid;
+		grid-template-columns: 360px 1fr;
+		grid-template-rows: 100px 1fr;
+		grid-template-areas:
+			"side head head head"
+			"side main main main"
+			"side main main main"
+			"side main main main";
+	}
 }
