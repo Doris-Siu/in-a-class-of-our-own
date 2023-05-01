@@ -6,6 +6,7 @@
 	flex-direction: column;
 	justify-content: space-between;
 	gap: 20px;
+    background-color: #F4F3EF;
 }
 .card {
 	background-color: var(--white);
