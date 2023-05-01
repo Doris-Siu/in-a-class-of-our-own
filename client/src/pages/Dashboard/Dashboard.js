@@ -7,10 +7,10 @@ import DashboardSidebar from "./Components/Sidebar/Sidebar";
 
 const Dashboard = () => {
   return (
-   <>
-   <DashboardHeader />
-   <DashboardSidebar />
-   </>
-  );
+		<div className="dashboard">
+			<DashboardHeader />
+			<DashboardSidebar />
+		</div>
+	);
 };
 export default Dashboard;

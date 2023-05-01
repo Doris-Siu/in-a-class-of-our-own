@@ -5,7 +5,7 @@ import "./Sidebar.css";
 
 const Sidebar = () => {
 	return (
-		<div>
+		<div className="sidebar">
 			<div className="sidebar-head">
 				<h2>user name</h2>
 				<h6>cohort name</h6>
