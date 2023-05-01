@@ -1,10 +1,16 @@
 import "./Dashboard.css";
 
+import DashboardHeader from "./Components/DashboardHeader/DashboardHeader";
+import DashboardSidebar from "./Components/Sidebar/Sidebar";
+
 
 
 const Dashboard = () => {
   return (
-    <h1>sfijfi</h1>
+   <>
+   <DashboardHeader />
+   <DashboardSidebar />
+   </>
   );
 };
 export default Dashboard;
