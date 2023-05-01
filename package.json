@@ -72,11 +72,13 @@
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.21.0",
+		"cdbreact": "^1.5.14",
 		"dotenv": "^16.0.3",
 		"express": "^4.18.2",
 		"helmet": "^6.0.1",
 		"morgan": "^1.10.0",
 		"pg": "^8.9.0",
+		"react-bootstrap": "^2.7.4",
 		"react-icons": "^4.8.0",
 		"winston": "^3.8.2"
 	},
