@@ -12,7 +12,7 @@ const Sidebar = () => {
 			</div>
 			<ul className="side-links">
 				<li>
-					<NavLink to="overview">Overview</NavLink>
+					<NavLink to="">Overview</NavLink>
 				</li>
 				<li>
 					<NavLink to="set-milestone">Set Milestone</NavLink>

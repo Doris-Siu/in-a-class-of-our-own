@@ -1,7 +1,12 @@
+import "./Overview.css";
 
 const Overview = () => {
-  return (
-    <p>overview</p>
-  );
+	return (
+		<div className="overview">
+			<div>
+
+			</div>
+		</div>
+	);
 };
 export default Overview;

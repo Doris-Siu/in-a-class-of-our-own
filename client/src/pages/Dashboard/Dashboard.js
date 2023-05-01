@@ -13,7 +13,7 @@ const Dashboard = () => {
 		<div className="dashboard">
 			<DashboardHeader />
 			<DashboardSidebar />
-			<Routes>
+			<Routes className="main-section">
 				<Route index element={<Overview />} />
 				<Route path="/set-milestone" element={<SetMilestone />} />
 				<Route path="/cyf-milestone" element={<CyfMilestone />} />
