@@ -6,7 +6,7 @@ import Header from "../Components/Header/Header";
 import Footer from "../Components/Footer/Footer";
 import ApplicationInfo from "../pages/App-info/ApplicationInfo";
 
-const App = () => (
+const Index = () => (
 	<>
 		<Header />
 		<Routes>
@@ -18,4 +18,4 @@ const App = () => (
 	</>
 );
 
-export default App;
+export default Index;

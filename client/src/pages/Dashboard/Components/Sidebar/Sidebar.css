@@ -1,0 +1,15 @@
+@import url("../../../Home.css");
+
+.sidebar-head {
+	text-align: center;
+	border-bottom: solid 2px var(--grey);
+   margin: 0 40px;
+}
+
+.sidebar-head h2 {
+	margin: 30px 0 10px 0;
+}
+
+.sidebar-head h6 {
+margin-bottom: 20px;
+}

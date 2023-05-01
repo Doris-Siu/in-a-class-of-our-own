@@ -1,0 +1,21 @@
+@import url("../../../Home.css");
+
+.dash-header {
+	padding: 10px 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: solid 2px var(--red);
+}
+
+.dash-header a {
+	text-decoration: none;
+}
+
+.dash-header ul {
+    padding-top: 20px;
+	display: flex;
+	align-items: center;
+	list-style: none;
+	gap: 20px;
+}
