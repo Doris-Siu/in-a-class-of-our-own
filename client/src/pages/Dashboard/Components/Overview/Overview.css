@@ -1,10 +1,10 @@
 @import url("../../../Home.css");
 
 .overview {
-	padding: 50px;
+	padding: 30px;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+	justify-content: space-around;
 	gap: 20px;
     background-color: #F4F3EF;
 }
@@ -27,6 +27,7 @@
 	.overview {
 		padding: 50px;
 		flex-direction: row;
+		grid-area: main;
 	}
 
 	.card {

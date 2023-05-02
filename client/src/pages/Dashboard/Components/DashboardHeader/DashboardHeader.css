@@ -37,8 +37,7 @@
 
 @media only screen and (min-width: 900px) {
 	.dash-header {
-		padding: 64px 10px;
-		margin: 0 40px;
+		padding: 64px 40px;
 		border-bottom: solid 4px var(--white);
 	}
 }
