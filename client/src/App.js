@@ -1,12 +1,12 @@
 import { Route, Routes } from "react-router-dom";
 
-import Index from "./routes/Index";
+import Main from "./routes/Main";
 import Dashboard from "./pages/Dashboard/Dashboard";
 
 const App = () => (
 	<>
 		<Routes>
-			<Route path="/*" element={<Index />} />
+			<Route path="/*" element={<Main />} />
 			<Route path="/dashboard/*" element={<Dashboard />} />
 		</Routes>
 	</>
