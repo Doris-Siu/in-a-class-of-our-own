@@ -23,13 +23,25 @@ router.get("/trainee", (req, res) => {
 });
 
 router.post("/trainee", (req, res) => {
-	db.query("")
-		.then((result) => res.send(result.rows))
+	const newTrainee = req.body;
+	if (!newTrainee.githubusername){
+		res.send({ result: "failure", message: "Trainee could not be saved, Github user name required" });
+	} else {
+		try {
+	const addNew =
+		"INSERT INTO trainee (githubusername, codewarsusername, displayname, cohort) VALUES ($1, $2, $3, $4) RETURNING id";
 
-		.catch((error) => {
-			logger.log(error);
-			res.status(500);
-		});
+	db.query(addNew, [
+		newTrainee.githubusername,
+		newTrainee.codewarsusername,
+		newTrainee.displayname,
+		newTrainee.cohort,
+	]).then((result) => res.send(result));
+			} catch(error){
+					logger.log(error);
+					res.status(500);
+			}
+			}
 });
 
 // cohorts table
