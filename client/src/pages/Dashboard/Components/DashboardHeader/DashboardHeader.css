@@ -1,0 +1,43 @@
+@import url("../../../Home.css");
+
+.dash-header {
+	padding: 10px 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: solid 2px var(--red);
+	background-color: #F4F3EF;
+	grid-area: head;
+}
+
+.dash-header a {
+	text-decoration: none;
+	font-weight: 700;
+	font-size: 26px;
+	color: var(--black);
+}
+
+.dash-header ul {
+    padding-top: 20px;
+	display: flex;
+	align-items: center;
+	list-style: none;
+	gap: 20px;
+}
+
+
+.dash-header button {
+	font-size: 28px;
+}
+
+.dash-header a:hover, .dash-header button:hover {
+	color: var(--red);
+}
+
+
+@media only screen and (min-width: 900px) {
+	.dash-header {
+		padding: 64px 40px;
+		border-bottom: solid 4px var(--white);
+	}
+}

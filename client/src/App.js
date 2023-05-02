@@ -1,19 +1,14 @@
 import { Route, Routes } from "react-router-dom";
 
-import About from "./pages/About/About";
-import Home from "./pages/Home";
-import Header from "./Components/Header/Header";
-import ApplicationInfo from "./pages/App-info/ApplicationInfo";
-import Footer from "./Components/Footer/Footer";
+import Index from "./routes/Index";
+import Dashboard from "./pages/Dashboard/Dashboard";
+
 const App = () => (
 	<>
-		<Header />
 		<Routes>
-			<Route path="/" element={<Home />} />
-			<Route path="/about" element={<About />} />
-			<Route path="/app" element={<ApplicationInfo />} />
+			<Route path="/*" element={<Index />} />
+			<Route path="/dashboard/*" element={<Dashboard />} />
 		</Routes>
-		<Footer />
 	</>
 );
 
