@@ -6,15 +6,15 @@
 
 .card {
 	background-color: var(--white);
-	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+	/* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
 	padding: 20px;
 	border-radius: 10px;
 }
 
 .overview-title {
 	text-align: center;
-	width: 350px;
-	margin: 50px auto;
+	width: 280px;
+	margin: 20px auto;
 	border-bottom: 20px solid rgb(15, 183, 26);
 }
 
@@ -22,18 +22,19 @@
 	color: rgb(15, 183, 26);
 	padding: 0;
 	margin: 0;
+	font-size: 16px;
 }
 
-.chart-container {
+.charts-container {
 	/* margin: 50px auto; */
 }
 
-.chart {
+.chart-card {
 	width: 240px;
 	height: 500px;
 }
 
-.chart > div > div {
+.chart-card > div > div {
 	width: 100%;
 	height: 200px;
 	background-color: yellowgreen;
@@ -41,22 +42,22 @@
 
 @media only screen and (min-width: 900px) {
 	.overview {
-		padding: 50px;
-		flex-direction: row;
-		grid-area: main;
+		padding: 10px;
+		/* flex-direction: row; */
+		/* grid-area: main; */
 	}
 
 	.overview-title {
-		width: 600px;
+		width: 380px;
 	}
 
-	.chart-container {
+	.charts-container {
 		margin-top: 30px;
 		display: flex;
 		justify-content: space-around;
 	}
 
-	.chart {
+	.chart-card {
 		width: 300px;
 	}
 }
