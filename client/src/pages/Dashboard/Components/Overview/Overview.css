@@ -2,6 +2,10 @@
 
 .overview {
 	background-color: #f4f3ef;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
 }
 
 .card {
@@ -15,36 +19,35 @@
 	text-align: center;
 	width: 280px;
 	margin: 20px auto;
-	border-bottom: 20px solid rgb(15, 183, 26);
+	border-bottom: 12px solid rgb(15, 183, 26);
 }
 
 .overview-title p {
 	color: rgb(15, 183, 26);
 	padding: 0;
 	margin: 0;
-	
 }
 
-.overview p {font-size: 16px;}
+.overview p {
+	font-size: 16px;
+}
 
 .charts-container {
-	/* margin: 50px auto; */
+	margin: 50px auto;
 }
 
 .chart-card {
-	width: 240px;
+	width: 300px;
+	margin: 0 0 20px;
 }
 
 .chart-card > div > div {
 	width: 100%;
-	height: 200px;
-	background-color: yellowgreen;
 }
 
 @media only screen and (min-width: 900px) {
 	.overview {
 		padding: 10px;
-		/* grid-area: main; */
 	}
 
 	.overview-title {
@@ -55,9 +58,10 @@
 		margin-top: 30px;
 		display: flex;
 		justify-content: space-around;
+		gap: 50px;
 	}
 
 	.chart-card {
-		width: 300px;
+		width: 320px;
 	}
 }
