@@ -12,15 +12,15 @@ const Overview = () => {
 			<div className="charts-container">
 				<div className="card chart-card">
 					<div>
-						<h2>CYF Milstone</h2>
-						<p>You can find out how others doing:</p>
+						<h5>My Own Progress</h5>
+						<p>Github PRs & Codewars</p>
 						<div></div>
 					</div>
 				</div>
 				<div className="card chart-card">
 					<div>
-						<h2>User Milstone</h2>
-						<p>You can find out how others doing:</p>
+						<h5>My Cohort Progress</h5>
+						<p>Other trainees milestone</p>
 						<div></div>
 					</div>
 				</div>

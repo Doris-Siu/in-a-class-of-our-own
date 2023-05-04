@@ -22,8 +22,10 @@
 	color: rgb(15, 183, 26);
 	padding: 0;
 	margin: 0;
-	font-size: 16px;
+	
 }
+
+.overview p {font-size: 16px;}
 
 .charts-container {
 	/* margin: 50px auto; */
@@ -31,7 +33,6 @@
 
 .chart-card {
 	width: 240px;
-	height: 500px;
 }
 
 .chart-card > div > div {
@@ -43,7 +44,6 @@
 @media only screen and (min-width: 900px) {
 	.overview {
 		padding: 10px;
-		/* flex-direction: row; */
 		/* grid-area: main; */
 	}
 
