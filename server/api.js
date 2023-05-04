@@ -65,4 +65,81 @@ router.post("/cohorts", (req, res) => {
 			logger.debug(error);
 		}
 });
+
+// extracted data table
+router.get("/extracteddata", (req, res) => {
+	try {
+	db
+		.query("SELECT * FROM extracteddata")
+			.then((result) => res.send(result.rows));
+	}catch(error){
+				logger.log(error);
+				res.status(500);
+			}
+});
+
+// post request for extracteddata table
+router.post("/extracteddata", (req, res) => {
+	const newData = req.body;
+	if (!newData.codewarsRank || !newData.codewarsjspoints || !newData.githubprs){
+		res.send({ result: "failure", message: "New data could not be saved, some input required" });
+	} else {
+		try {
+            // constrain coded
+            const getTraineeId = "SELECT name FROM trainee WHERE id = $1";
+            db.query(getTraineeId,[newData.traineeid]).then((result) => res.send(result));
+            // constrain coded upto here
+	const addNew =
+		"INSERT INTO extracteddata (trineeid, date, codewarsrank, codewarsjspoints, githubprs) VALUES ($1, $2, $3, $4, $5) RETURNING id"; // Need to add constraint for traineeid
+	db.query(addNew, [
+        //newData.trineeid, ?? OR the following
+        getTraineeId, // Need opinion
+		newData.date,
+		newData.codewarsrank,
+		newData.codewarsjspoints,
+		newData.githubprs,
+	]).then((result) => res.send(result));
+			} catch(error){
+					logger.log(error);
+					res.status(500);
+			}
+			}
+});
+
+// milestones table
+router.get("/milestone", (req, res) => {
+	try{
+	db.query("SELECT * FROM milestone")
+			.then((result) => res.send(result.rows));
+		} catch(error){
+				logger.log(error);
+				res.status(500);
+		}
+});
+
+router.post("/milestone", (req, res) => {
+	const newData = req.body;
+	if (!newData.modulename || !newData.codewarsrank || !newData.githubprs, !newData.codewarsjspoints){
+		res.send({ result: "failure", message: "New data could not be saved, some input required" });
+	} else {
+		try {
+            db
+			.then((result) => res.send(result.rows));
+	const addNew =
+		"INSERT INTO milestone (modulename, date, codewarsrank, githubprs, codewarsjspoints) VALUES ($1, $2, $3, $4, $5) RETURNING id";
+
+	db.query(addNew, [
+        newData.modulename,
+		newData.date,
+		newData.codewarsrank,
+        newData.githubprs,
+		newData.codewarsjspoints,
+	]).then((result) => res.send(result));
+			} catch(error){
+					logger.log(error);
+					res.status(500);
+			}
+			}
+});
+
 export default router;
