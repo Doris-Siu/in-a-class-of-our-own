@@ -1,20 +1,18 @@
 import "./Overview.css";
 import "chart.js/auto";
 import { Chart } from "react-chartjs-2";
+import getFinalScore from "../../Functions/checkMilestone";
+
 const Overview = () => {
+	let score = getFinalScore([25, 400], [25, 400]);
+
 	const traineeChartData = {
 		labels: ["Codewars", "# of PRs"],
 		datasets: [
 			{
 				data: [12, 19],
-				backgroundColor: [
-					"rgba(252, 3, 3)",
-					"rgb(15, 183, 26)",
-				],
-				borderColor: [
-					"rgba(252, 3, 3)",
-					"rgb(15, 183, 26)",
-				],
+				backgroundColor: ["rgba(252, 3, 3)", "rgb(15, 183, 26)"],
+				borderColor: ["rgba(252, 3, 3)", "rgb(15, 183, 26)"],
 				borderWidth: 1,
 			},
 		],
@@ -44,7 +42,7 @@ const Overview = () => {
 			<div className="card overview-title">
 				<h5>YOUR CURRENT STATUS</h5>
 				<div>
-					<p>YOU ARE AT THE MILESTONE</p>
+					<p>YOU ARE AT {score}</p>
 				</div>
 			</div>
 			<div className="charts-container">
