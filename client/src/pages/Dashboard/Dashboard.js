@@ -7,13 +7,10 @@ import DashboardSidebar from "./Components/Sidebar/Sidebar";
 import Overview from "./Components/Overview/Overview";
 import CyfMilestone from "./Components/CyfMilestone/CyfMilestone";
 import SetMilestone from "./Components/SetMilestone/SetMilestone";
-// import getFinalScore from "./Functions/checkMilestone";
 
 const Dashboard = () => {
-	// let score = getFinalScore([25, 400], [25, 400]);
 	return (
 		<div className="dashboard">
-			{/* <div>Your score {score}</div> */}
 			<DashboardHeader />
 			<DashboardSidebar />
 			<Routes className="main-section">
