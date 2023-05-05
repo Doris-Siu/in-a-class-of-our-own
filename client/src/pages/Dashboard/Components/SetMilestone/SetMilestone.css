@@ -1,0 +1,84 @@
+@import url("../../../Home.css");
+
+.page-container {
+	display: flex;
+	gap: 1rem;
+	flex-direction: column;
+	padding: 20px;
+	align-items: center;
+}
+
+.p1 {
+	font-style: italic;
+}
+
+.p2 {
+	color: var(--red);
+	font-weight: bold;
+}
+
+.form-container {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	background-color: var(--white);
+	width: 80%;
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+	padding: 20px;
+	border-radius: 10px;
+	height: auto;
+}
+
+.button {
+	margin: auto;
+	background-color: var(--red);
+	font-weight: bold;
+	color: var(--white);
+	border-radius: 20px;
+	padding: 14px 25px;
+}
+
+.button span {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	transition: 0.5s;
+}
+
+.button span:after {
+	content: "\00bb";
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -20px;
+	transition: 0.5s;
+}
+
+.button:hover span {
+	padding-right: 25px;
+}
+
+.button:hover span:after {
+	opacity: 1;
+	right: 0;
+}
+
+@media only screen and (min-width: 900px) {
+	.page-container {
+		width: 80%;
+	}
+
+	.p2 {
+		font-size: x-large;
+		margin-top: 3rem;
+		margin-bottom: 1rem;
+	}
+
+	.form-container {
+		padding: 30px;
+	}
+
+	label {
+		margin-right: 10px;
+	}
+}
