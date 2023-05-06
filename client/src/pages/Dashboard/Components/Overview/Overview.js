@@ -2,8 +2,28 @@ import "./Overview.css";
 import "chart.js/auto";
 import { Chart } from "react-chartjs-2";
 import getFinalScore from "../../Functions/checkMilestone";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Overview = () => {
+
+//   const [data, setData] = useState(null);
+// 	const [error, setError] = useState(null);
+// 	cosnt [loading, setLoding] = useState(true)
+
+// 	useEffect(() => {
+// 		async function fetchData() {
+// 			try {
+// 				const response = await axios.get("https://example.com/api/data");
+// 				setData(response.data);
+// 			} catch (error) {
+// 				setError(error.message);
+// 			}
+// 		}
+// 		fetchData();
+// 	}, []);
+
+
 	let score = getFinalScore([25, 400], [25, 400]);
 
 	const traineeChartData = {
@@ -42,7 +62,7 @@ const Overview = () => {
 			<div className="card overview-title">
 				<h5>YOUR CURRENT STATUS</h5>
 				<div>
-					<p>YOU ARE AT {score}</p>
+					<p>YOU ARE {score} MILESTONE</p>
 				</div>
 			</div>
 			<div className="charts-container">
