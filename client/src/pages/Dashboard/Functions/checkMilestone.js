@@ -24,6 +24,14 @@ const getFinalScore = (actualScoreArr, atMilestoneScoreArr) => {
 	for (let i = 0; i < length; i++) {
 		totalScore += getFactorScore(actualScoreArr[i], atMilestoneScoreArr[i]);
 	}
-	return getFactorScore(totalScore / length, AT_SCORE);
+	const traineeStatus = getFactorScore(totalScore / length, AT_SCORE);
+
+	if (traineeStatus === 1) {
+		return "BEHIND";
+	} else if (traineeStatus === 2) {
+		return "AT";
+	} else {
+		("BEYOND");
+	}
 };
 export default getFinalScore;
