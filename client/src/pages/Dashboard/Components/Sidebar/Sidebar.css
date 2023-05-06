@@ -30,6 +30,11 @@
 	justify-content: space-around;
 }
 
+/* ACTIVE LINK */
+.side-links a.active {
+  color: var(--red);
+}
+
 .side-links li a {
 	text-decoration: none;
 	color: var(--black);
