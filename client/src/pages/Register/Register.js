@@ -12,7 +12,7 @@ const Register = () => {
 		e.preventDefault();
 
 		console.log(
-			`Submitted form data: username=${username}, =${github}, =${cohort}`
+			`Submitted form data: username=${username}, =${github}, =${cohort} , ${codewars}`
 		);
 	};
 
