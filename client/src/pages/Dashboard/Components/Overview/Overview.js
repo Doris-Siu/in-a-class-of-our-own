@@ -72,11 +72,7 @@ const Overview = () => {
 						<p>Github PRs & Codewars</p>
 						<div>
 							{loading ? (
-								<img
-									src={loadingGif}
-									alt="loading"
-									className="loading"
-								/>
+								<img src={loadingGif} alt="loading" className="loading" />
 							) : (
 								<Chart type="pie" data={traineeChartData} />
 							)}
@@ -89,11 +85,7 @@ const Overview = () => {
 						<p>Other trainees milestone</p>
 						<div>
 							{loading ? (
-								<img
-									src={loadingGif}
-									alt="loading"
-									className="loading"
-								/>
+								<img src={loadingGif} alt="loading" className="loading" />
 							) : (
 								<Chart type="pie" data={cohortChartData} />
 							)}
