@@ -5,6 +5,7 @@ const Register = () => {
 	const [username, setUsername] = useState("");
 	const [github, setGithub] = useState("");
 	const [cohort, setCohort] = useState("");
+	const [codewars, setCodewars] = useState("");
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -16,14 +17,28 @@ const Register = () => {
 
 	return (
 		<div className="body">
+			<div className="banner">
+				<img src="../../Assets/register.jpg" alt="register" />
+			</div>
 				<form onSubmit={handleSubmit}>
-                    <h1>Register</h1>
+					<h3>Welcome To The Class Of Our Own App</h3>
+                    <p>Plaese fill all of the fields:</p>
 					<label>
 						Github Account:
 						<input
 							type="text"
-							value={username}
+							value={github}
 							onChange={(e) => setGithub(e.target.value)}
+                            required
+						/>
+					</label>
+					<label>
+						Codewars Account:
+						<input
+							type="text"
+							value={codewars}
+							onChange={(e) => setCodewars(e.target.value)}
+                            required
 						/>
 					</label>
 					<label>
@@ -32,17 +47,19 @@ const Register = () => {
 							type="text"
 							value={username}
 							onChange={(e) => setUsername(e.target.value)}
+                            required
 						/>
 					</label>
 					<label>
 						Cohort Name:
 						<input
 							type="text"
-							value={username}
+							value={cohort}
 							onChange={(e) => setCohort(e.target.value)}
+                            required
 						/>
 					</label>
-					<button type="submit">Register</button>
+					<button type="submit">Submit</button>
 				</form>
 		</div>
 	);
