@@ -3,15 +3,14 @@
 	padding: 50px 10px;
 }
 
-.body .banner {
+.banner {
 	display: none;
 }
 
 .body form {
 	margin: 0 auto;
-	/* background-color: var(--grey); */
-	padding: 40px 10px;
-	width: 330px;
+	padding: 40px 10%;
+	width: 90%;
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
@@ -50,5 +49,30 @@
 
 .body form button:hover {
 background-color: #c11717;
+
+}
+
+@media only screen and (min-width: 1300px) {
+.body{
+display: flex;
+}
+
+.banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	display: block;
+    width: 40%;
+    margin: 0 auto;
+}
+
+.banner img {
+    width: 100%;
+}
+
+.body form {
+    width: 50%;
+    padding: 50px 10%;
+}
 
 }

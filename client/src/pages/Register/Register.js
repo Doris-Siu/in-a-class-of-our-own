@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "./Register.css";
+import bannerImg from "../../Assets/register.jpg";
+
 
 const Register = () => {
 	const [username, setUsername] = useState("");
@@ -18,7 +20,7 @@ const Register = () => {
 	return (
 		<div className="body">
 			<div className="banner">
-				<img src="../../Assets/register.jpg" alt="register" />
+				<img src={bannerImg} alt="register" />
 			</div>
 				<form onSubmit={handleSubmit}>
 					<h3>Welcome To The Class Of Our Own App</h3>
