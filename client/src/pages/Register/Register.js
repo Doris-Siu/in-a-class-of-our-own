@@ -16,8 +16,8 @@ const Register = () => {
 
 	return (
 		<div className="body">
-			<div>
 				<form onSubmit={handleSubmit}>
+                    <h1>Register</h1>
 					<label>
 						Github Account:
 						<input
@@ -44,7 +44,6 @@ const Register = () => {
 					</label>
 					<button type="submit">Register</button>
 				</form>
-			</div>
 		</div>
 	);
 };
