@@ -4,25 +4,25 @@ import { Chart } from "react-chartjs-2";
 import getFinalScore from "../../Functions/checkMilestone";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import loadingGif from "../../../../Assets/loading.gif";
 
 const Overview = () => {
+	const [ownProgress, setOwnProgress] = useState(null);
+	const [cyfProgress, setCyfProgress] = useState(null);
+	const [loading, setLoding] = useState(false);
+	const [error, setError] = useState(null);
 
-//   const [data, setData] = useState(null);
-// 	const [error, setError] = useState(null);
-// 	cosnt [loading, setLoding] = useState(true)
-
-// 	useEffect(() => {
-// 		async function fetchData() {
-// 			try {
-// 				const response = await axios.get("https://example.com/api/data");
-// 				setData(response.data);
-// 			} catch (error) {
-// 				setError(error.message);
-// 			}
-// 		}
-// 		fetchData();
-// 	}, []);
-
+	useEffect(() => {
+		async function fetchData() {
+			try {
+				const response = await axios.get("https://example.com/api/data");
+				setData(response.data);
+			} catch (error) {
+				setError(error.message);
+			}
+		}
+		fetchData();
+	}, []);
 
 	let score = getFinalScore([25, 400], [25, 400]);
 
@@ -70,7 +70,17 @@ const Overview = () => {
 					<div>
 						<h5>My Own Progress</h5>
 						<p>Github PRs & Codewars</p>
-						<Chart type="pie" data={traineeChartData} />
+						<div>
+							{loading ? (
+								<img
+									src={loadingGif}
+									alt="loading"
+									className="loading"
+								/>
+							) : (
+								<Chart type="pie" data={traineeChartData} />
+							)}
+						</div>
 					</div>
 				</div>
 				<div className="card chart-card">
@@ -78,7 +88,15 @@ const Overview = () => {
 						<h5>My Cohort Progress</h5>
 						<p>Other trainees milestone</p>
 						<div>
-							<Chart type="pie" data={cohortChartData} />
+							{loading ? (
+								<img
+									src={loadingGif}
+									alt="loading"
+									className="loading"
+								/>
+							) : (
+								<Chart type="pie" data={cohortChartData} />
+							)}
 						</div>
 					</div>
 				</div>
