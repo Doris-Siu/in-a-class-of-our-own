@@ -7,10 +7,10 @@ export default function Banner() {
 		<div className="banner-container">
 			<div className="banner-text">
 				<h1># IN A CLASS OF OUR OWN</h1>
-				<h3>
+				<h2>
 					You can view milestones in just 1 click. <br />
 					Get started now!
-				</h3>
+				</h2>
 			</div>
 			<img src={bannerBg} alt="bannerBg" className="banner-bg" />
 		</div>
