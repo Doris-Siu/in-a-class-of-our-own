@@ -40,6 +40,7 @@
 	width: 100%;
 	background-color: var(--red);
 	color: var(--white);
+	font-weight: 800;
 	padding: 8px;
 	font-size: 22px;
 	border-radius: 20px;
