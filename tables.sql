@@ -12,8 +12,8 @@ CREATE TABLE extractedData (
     "id" SERIAL PRIMARY KEY,
     "traineeID" INTEGER NOT NULl,
     "date" DATE,
-    "codewarsRank" INTEGER NOT NULL,
-    "codewarsJsPoints" INTEGER NOT NULL,
+    "codewarsrank" INTEGER NOT NULL,
+    "codewarsjspoints" INTEGER NOT NULL,
     "githubPrs" INTEGER NOT NULL,
     FOREIGN KEY (traineeID) REFERENCES trainee(id)
 );
@@ -21,7 +21,7 @@ CREATE TABLE extractedData (
 -- CreateTable 
 CREATE TABLE cohorts (
     "id" SERIAL PRIMARY KEY,
-    "cohortName" VARCHAR (50) NOT NULL,
+    "cohortname" VARCHAR (50) NOT NULL,
 );
 
 -- CreateTable 
@@ -33,3 +33,5 @@ CREATE TABLE milestone (
     "githubPrs" INTEGER NOT NULL, 
     "codewarsJsPoints" INTEGER NOT NULL
 );
+
+
