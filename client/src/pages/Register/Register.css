@@ -56,12 +56,27 @@
 		padding: 0;
 	}
 
+	.body form h3 {
+		font-size: 4vh;
+	}
+
+	.body form label {
+	font-size: 2.6vh;
+}
+
+	.body form input {
+	margin-top: 0.8vh;
+	border-radius: 22px;
+	padding: 0.6vh 12px;
+}
+
 	.banner {
 		position: relative;
 		display: inline-block;
 		width: 50%;
 		margin: 0 auto;
 	}
+
 
 	.banner h2 {
 		color: #fff;
