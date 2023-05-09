@@ -18,11 +18,16 @@
 	text-align: center;
 	width: 280px;
 	margin: 20px auto;
-	border-bottom: 12px solid rgb(15, 183, 26);
+	border-bottom: 12px solid #0e8d0e;
 }
 
-.overview-title p {
-	color: rgb(15, 183, 26);
+.overview-title p:first-child {
+	font-size: 26px;
+	font-weight: 700;
+}
+.overview-title p:last-child {
+	color: #0e8d0e;
+	font-weight: 800;
 	padding: 0;
 	margin: 0;
 }
@@ -38,6 +43,11 @@
 .chart-card {
 	width: 300px;
 	margin: 0 0 20px;
+}
+
+.chart-card > div p:first-child {
+	font-size: 26px;
+	font-weight: 700;
 }
 
 .chart-card > div > div {

@@ -40,7 +40,7 @@ const Overview = () => {
 	return (
 		<div className="overview">
 			<div className="card overview-title">
-				<h5>YOUR CURRENT STATUS</h5>
+				<p>YOUR CURRENT STATUS</p>
 				<div>
 					<p>YOU ARE AT {score}</p>
 				</div>
@@ -48,14 +48,14 @@ const Overview = () => {
 			<div className="charts-container">
 				<div className="card chart-card">
 					<div>
-						<h5>My Own Progress</h5>
+						<p>My Own Progress</p>
 						<p>Github PRs & Codewars</p>
 						<Chart type="pie" data={traineeChartData} />
 					</div>
 				</div>
 				<div className="card chart-card">
 					<div>
-						<h5>My Cohort Progress</h5>
+						<p>My Cohort Progress</p>
 						<p>Other trainees milestone</p>
 						<div>
 							<Chart type="pie" data={cohortChartData} />
