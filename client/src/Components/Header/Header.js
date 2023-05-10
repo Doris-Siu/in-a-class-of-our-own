@@ -4,13 +4,22 @@ import { FaBars, FaGithub } from "react-icons/fa";
 import "./Header.css";
 import { useState } from "react";
 
+const CLIENT_ID = "09c0182882c809602d38";
+
 const Header = () => {
 	const [showLinks, setShowLinks] = useState(false);
 	const [rotate, setRotate] = useState(false);
 
+
 	function openHiddenLinks() {
 		setRotate(!rotate);
 		setShowLinks(!showLinks);
+	}
+
+	function loginWithGithub() {
+		window.location.assign(
+			"https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID
+		);
 	}
 
 	return (
@@ -30,7 +39,7 @@ const Header = () => {
 						<NavLink to="/app">Application Info</NavLink>
 					</li>
 					<li>
-						<button>
+						<button onClick={loginWithGithub}>
 							Github Login
 							<FaGithub />
 						</button>
