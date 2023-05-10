@@ -66,7 +66,7 @@ router.post("/cohorts", (req, res) => {
 		}
 });
 
-// extracted data table
+// extracteddata table
 router.get("/extracteddata", (req, res) => {
 	try {
 	db
@@ -130,7 +130,9 @@ const getCodewarInfo = async (userName) => {
 const getGithubInfo = async (userName) => {
 	// const endpoint = `https://api.github.com/users/${userName}`;
 	// the following api for github prs need to be adjusted  and filtered for code your future prs for each trainee, Then comment out the above fetching
-	const endPointForGithubPrs = `https://api.github.com/search/issues?q=is%3Apr+author%3A${userName}`;
+	// const endPointForGithubPrs = `https://api.github.com/search/issues?q=is%3Apr+author%3A${userName}`;
+
+	const endPointForGithubPrs = `https://api.github.com/search/issues?per_page=100&q=is%3Apr+author%3A${userName}`;
 	try {
 		// count function
 		const countByUrl = (data) => {
