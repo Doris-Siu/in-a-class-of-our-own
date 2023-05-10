@@ -4,6 +4,8 @@ import Main from "./routes/Main";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Register from "./pages/Register/Register";
 
+
+
 const App = () => (
 	<>
 		<Routes>
