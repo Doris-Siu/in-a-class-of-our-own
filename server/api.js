@@ -17,9 +17,9 @@ router.get("/trainee", (req, res) => {
 		.query("SELECT * FROM trainee")
 			.then((result) => res.send(result.rows));
 	}catch(error){
-				logger.log(error);
-				res.status(500);
-			}
+			logger.log(error);
+			res.status(500);
+		}
 });
 
 router.post("/trainee", (req, res) => {
@@ -37,32 +37,32 @@ router.post("/trainee", (req, res) => {
 		newTrainee.displayname,
 		newTrainee.cohort,
 	]).then((result) => res.send(result));
-			} catch(error){
-					logger.log(error);
-					res.status(500);
-			}
-			}
+		} catch(error){
+			logger.log(error);
+			res.status(500);
+		}
+		}
 });
 
 // cohorts table
 router.get("/cohorts", (req, res) => {
 	try{
 	db.query("SELECT * FROM cohorts")
-			.then((result) => res.send(result.rows));
+		.then((result) => res.send(result.rows));
 		} catch(error){
-				logger.log(error);
-				res.status(500);
+			logger.log(error);
+			res.status(500);
 		}
 });
 
 router.post("/cohorts", (req, res) => {
 	const query = req.body;
 	const str = "INSERT INTO cohorts (cohortname) VALUES ($1) RETURNING id";
-	try{
+	try {
 		db.query(str,[query.cohortname])
 		.then((result) => res.send(result));
-	}catch(error){
-			logger.debug(error);
+	} catch(error){
+		logger.debug(error);
 		}
 });
 
@@ -73,38 +73,92 @@ router.get("/extracteddata", (req, res) => {
 		.query("SELECT * FROM extracteddata")
 			.then((result) => res.send(result.rows));
 	}catch(error){
-				logger.log(error);
-				res.status(500);
-			}
+		logger.log(error);
+		res.status(500);
+	}
 });
 
-// post request for extracteddata table
+// post request for extracteddata table and using fetch request to github and codewars api
 router.post("/extracteddata", (req, res) => {
-	const newData = req.body;
-	if (!newData.codewarsRank || !newData.codewarsjspoints || !newData.githubprs){
-		res.send({ result: "failure", message: "New data could not be saved, some input required" });
-	} else {
-		try {
-            // constrain coded
-            const getTraineeId = "SELECT name FROM trainee WHERE id = $1";
-            db.query(getTraineeId,[newData.traineeid]).then((result) => res.send(result));
-            // constrain coded upto here
-	const addNew =
-		"INSERT INTO extracteddata (trineeid, date, codewarsrank, codewarsjspoints, githubprs) VALUES ($1, $2, $3, $4, $5) RETURNING id"; // Need to add constraint for traineeid
-	db.query(addNew, [
-        //newData.trineeid, ?? OR the following
-        getTraineeId, // Need opinion
-		newData.date,
-		newData.codewarsrank,
-		newData.codewarsjspoints,
-		newData.githubprs,
-	]).then((result) => res.send(result));
-			} catch(error){
-					logger.log(error);
-					res.status(500);
-			}
-			}
+
+	try {
+		extractData().then((result) => res.send(result));
+	} catch (error) {
+		logger.log(error);
+		res.status(500).send(error);
+	}
 });
+
+const extractData = async ()=> {
+	const trainees = await getTrainees();
+
+	const today = new Date();
+
+	trainees.forEach(async (trainee)=> {
+		const [rank, points] = await getCodewarInfo(trainee.codewarsusername);
+		const githubPrs = await getGithubInfo(trainee.githubusername);
+		insertExtractedData(
+			trainee.id,
+			rank,
+			points,
+			githubPrs,
+			today
+		);
+	});
+};
+
+const getTrainees = async () => {
+	const results = await db.query("SELECT * FROM trainee");
+	return results.rows;
+};
+
+const getCodewarInfo = async (userName) => {
+	const endpoint = "http://www.codewars.com/api/v1/users/" + userName;
+	try{
+		const response =  await fetch(endpoint);
+		logger.debug(response);
+		const profile = await response.json();
+		logger.debug(profile);
+		return [
+			Math.abs(profile.ranks.overall.rank),
+			profile.ranks.languages.javascript.score,
+		];
+	} catch(error){
+		return [9, 0];
+	}
+};
+const getGithubInfo = async (userName) => {
+	const endpoint = `https://api.github.com/users/${userName}`;
+	// the following api for github prs need to be adjusted  and filtered for code your future prs for each trainee, Then comment out the above fetching
+	// const endPointForGithubPrs = `https://api.github.com/search/issues?q=is%3Apr+author%3A${userName}`;
+	try {
+		const response = await fetch(endpoint);
+		logger.debug(response);
+		const pullreq = await response.json();
+		logger.debug(pullreq.public_repos);
+		return pullreq.public_repos;
+	} catch (error) {
+		return 0;
+	}
+};
+
+const insertExtractedData = (
+	traineeid,
+	codewarsrank,
+	codewarsjspoints,
+	githubprs,
+	timestamp
+) => {
+	const addNew =
+		"INSERT INTO extracteddata (traineeid, codewarsrank, codewarsjspoints, githubprs, timestamp) VALUES ($1, $2, $3, $4, $5) RETURNING id"; // Need to add constraint for traineeid
+	return db.query(addNew, [
+		traineeid,
+		codewarsrank,
+		codewarsjspoints,
+		githubprs,
+		timestamp,
+	]);
+};
 
 // milestones table
 router.get("/milestone", (req, res) => {
@@ -112,8 +166,8 @@ router.get("/milestone", (req, res) => {
 	db.query("SELECT * FROM milestone")
 			.then((result) => res.send(result.rows));
 		} catch(error){
-				logger.log(error);
-				res.status(500);
+			logger.log(error);
+			res.status(500);
 		}
 });
 
@@ -123,7 +177,7 @@ router.post("/milestone", (req, res) => {
 		res.send({ result: "failure", message: "New data could not be saved, some input required" });
 	} else {
 		try {
-            db
+			db
 			.then((result) => res.send(result.rows));
 	const addNew =
 		"INSERT INTO milestone (modulename, date, codewarsrank, githubprs, codewarsjspoints) VALUES ($1, $2, $3, $4, $5) RETURNING id";
@@ -135,11 +189,11 @@ router.post("/milestone", (req, res) => {
         newData.githubprs,
 		newData.codewarsjspoints,
 	]).then((result) => res.send(result));
-			} catch(error){
-					logger.log(error);
-					res.status(500);
-			}
-			}
+		} catch(error){
+			logger.log(error);
+			res.status(500);
+		}
+	}
 });
 
 export default router;
