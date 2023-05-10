@@ -15,10 +15,10 @@
 .sidebar-head h2 {
 	margin: 30px 0 10px 0;
 	font-weight: 700;
-    color: var(--red);
+	color: var(--red);
 }
 
-.sidebar-head h6 {
+.sidebar-head p {
 	margin-bottom: 20px;
 }
 

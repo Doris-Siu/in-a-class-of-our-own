@@ -8,7 +8,7 @@ const Sidebar = () => {
 		<div className="sidebar">
 			<div className="sidebar-head">
 				<h2>user name</h2>
-				<h6>cohort name</h6>
+				<p>cohort name</p>
 			</div>
 			<ul className="side-links">
 				<li>
