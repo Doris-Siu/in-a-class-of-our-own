@@ -196,4 +196,19 @@ router.post("/milestone", (req, res) => {
 	}
 });
 
+// Add user details (input) inside database
+router.post("/register", async (req, res) => {
+	try {
+		const { username, github, cohort, codewars } = req.body;
+		await db.query(
+			"INSERT INTO trainee (displayname, githubusername, cohort, codewarsusername) VALUES ($1, $2, $3, $4)",
+			[username, github, cohort, codewars]
+		);
+		res.status(200).json({ success: true });
+	} catch (err) {
+		res.status(500).json({ message: "Server error" });
+	}
+});
+
+
 export default router;

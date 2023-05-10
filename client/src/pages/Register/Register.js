@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Register.css";
 import bannerImg from "../../Assets/register.jpg";
+import axios from "axios";
 
 const Register = () => {
 	const [username, setUsername] = useState("");
@@ -8,12 +9,23 @@ const Register = () => {
 	const [cohort, setCohort] = useState("");
 	const [codewars, setCodewars] = useState("");
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-
-		console.log(
-			`Submitted form data: username=${username}, =${github}, =${cohort} , ${codewars}`
-		);
+		try {
+			const res = await axios.post("api/register", {
+				username,
+				github,
+				cohort,
+				codewars,
+			});
+			console.log(res.data);
+			setUsername("");
+			setGithub("");
+			setCohort("");
+			setCodewars("");
+		} catch (err) {
+			console.log(err);
+		}
 	};
 
 	return (
