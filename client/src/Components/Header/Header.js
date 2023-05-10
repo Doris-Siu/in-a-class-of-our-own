@@ -10,6 +10,7 @@ const Header = () => {
 	const [showLinks, setShowLinks] = useState(false);
 	const [rotate, setRotate] = useState(false);
 
+
 	function openHiddenLinks() {
 		setRotate(!rotate);
 		setShowLinks(!showLinks);
