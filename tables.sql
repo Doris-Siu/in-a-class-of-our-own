@@ -34,4 +34,9 @@ CREATE TABLE milestone (
     "codewarsJsPoints" INTEGER NOT NULL
 );
 
-
+CREATE TABLE cyfrepos(
+    "id" SERIAL PRIMARY KEY,
+    "milestoneid" INTEGER NOT NULl,
+    "reponame" VARCHAR (250) NOT NULL,
+    FOREIGN KEY (milestoneid) REFERENCES milestone (id)
+);
