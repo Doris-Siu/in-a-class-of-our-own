@@ -20,6 +20,18 @@ router.get("/trainee", (req, res) => {
 	}
 });
 
+//get specific trainee/ check if this trainee already exists
+router.get("/trainee/:githubusername", (req, res) => {
+	try {
+		db.query("SELECT  * FROM trainee WHERE githubusername = $1", [
+			req.params,
+		]).then((result) => res.send(result.rows));
+	} catch (error) {
+		logger.log(error);
+		res.status(500);
+	}
+});
+
 router.post("/trainee", (req, res) => {
 	const newTrainee = req.body;
 	if (!newTrainee.githubusername) {
