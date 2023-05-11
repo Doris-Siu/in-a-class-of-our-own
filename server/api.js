@@ -13,66 +13,65 @@ router.get("/", (_, res) => {
 // trainee table
 router.get("/trainee", (req, res) => {
 	try {
-	db
-		.query("SELECT * FROM trainee")
-			.then((result) => res.send(result.rows));
-	}catch(error){
-			logger.log(error);
-			res.status(500);
-		}
+		db.query("SELECT * FROM trainee").then((result) => res.send(result.rows));
+	} catch (error) {
+		logger.log(error);
+		res.status(500);
+	}
 });
 
 router.post("/trainee", (req, res) => {
 	const newTrainee = req.body;
-	if (!newTrainee.githubusername){
-		res.send({ result: "failure", message: "Trainee could not be saved, Github user name required" });
+	if (!newTrainee.githubusername) {
+		res.send({
+			result: "failure",
+			message: "Trainee could not be saved, Github user name required",
+		});
 	} else {
 		try {
-	const addNew =
-		"INSERT INTO trainee (githubusername, codewarsusername, displayname, cohort) VALUES ($1, $2, $3, $4) RETURNING id";
+			const addNew =
+				"INSERT INTO trainee (githubusername, codewarsusername, displayname, cohort) VALUES ($1, $2, $3, $4) RETURNING id";
 
-	db.query(addNew, [
-		newTrainee.githubusername,
-		newTrainee.codewarsusername,
-		newTrainee.displayname,
-		newTrainee.cohort,
-	]).then((result) => res.send(result));
-		} catch(error){
+			db.query(addNew, [
+				newTrainee.githubusername,
+				newTrainee.codewarsusername,
+				newTrainee.displayname,
+				newTrainee.cohort,
+			]).then((result) => res.send(result));
+		} catch (error) {
 			logger.log(error);
 			res.status(500);
 		}
-		}
+	}
 });
 
 // cohorts table
 router.get("/cohorts", (req, res) => {
-	try{
-	db.query("SELECT * FROM cohorts")
-		.then((result) => res.send(result.rows));
-		} catch(error){
-			logger.log(error);
-			res.status(500);
-		}
+	try {
+		db.query("SELECT * FROM cohorts").then((result) => res.send(result.rows));
+	} catch (error) {
+		logger.log(error);
+		res.status(500);
+	}
 });
 
 router.post("/cohorts", (req, res) => {
 	const query = req.body;
 	const str = "INSERT INTO cohorts (cohortname) VALUES ($1) RETURNING id";
 	try {
-		db.query(str,[query.cohortname])
-		.then((result) => res.send(result));
-	} catch(error){
+		db.query(str, [query.cohortname]).then((result) => res.send(result));
+	} catch (error) {
 		logger.debug(error);
-		}
+	}
 });
 
 // extracteddata table
 router.get("/extracteddata", (req, res) => {
 	try {
-	db
-		.query("SELECT * FROM extracteddata")
-			.then((result) => res.send(result.rows));
-	}catch(error){
+		db.query("SELECT * FROM extracteddata").then((result) =>
+			res.send(result.rows)
+		);
+	} catch (error) {
 		logger.log(error);
 		res.status(500);
 	}
@@ -80,7 +79,6 @@ router.get("/extracteddata", (req, res) => {
 
 // post request for extracteddata table and using fetch request to github and codewars api
 router.post("/extracteddata", (req, res) => {
-
 	try {
 		extractData().then((result) => res.send(result));
 	} catch (error) {
@@ -89,21 +87,15 @@ router.post("/extracteddata", (req, res) => {
 	}
 });
 
-const extractData = async ()=> {
+const extractData = async () => {
 	const trainees = await getTrainees();
 
 	const today = new Date();
 
-	trainees.forEach(async (trainee)=> {
+	trainees.forEach(async (trainee) => {
 		const [rank, points] = await getCodewarInfo(trainee.codewarsusername);
 		const githubPrs = await getGithubInfo(trainee.githubusername);
-		insertExtractedData(
-			trainee.id,
-			rank,
-			points,
-			githubPrs,
-			today
-		);
+		insertExtractedData(trainee.id, rank, points, githubPrs, today);
 	});
 };
 
@@ -114,8 +106,8 @@ const getTrainees = async () => {
 
 const getCodewarInfo = async (userName) => {
 	const endpoint = "http://www.codewars.com/api/v1/users/" + userName;
-	try{
-		const response =  await fetch(endpoint);
+	try {
+		const response = await fetch(endpoint);
 		logger.debug(response);
 		const profile = await response.json();
 		logger.debug(profile);
@@ -123,7 +115,7 @@ const getCodewarInfo = async (userName) => {
 			Math.abs(profile.ranks.overall.rank),
 			profile.ranks.languages.javascript.score,
 		];
-	} catch(error){
+	} catch (error) {
 		return [9, 0];
 	}
 };
@@ -172,34 +164,38 @@ const insertExtractedData = (
 
 // milestones table
 router.get("/milestone", (req, res) => {
-	try{
-	db.query("SELECT * FROM milestone")
-			.then((result) => res.send(result.rows));
-		} catch(error){
-			logger.log(error);
-			res.status(500);
-		}
+	try {
+		db.query("SELECT * FROM milestone").then((result) => res.send(result.rows));
+	} catch (error) {
+		logger.log(error);
+		res.status(500);
+	}
 });
 
 router.post("/milestone", (req, res) => {
 	const newData = req.body;
-	if (!newData.modulename || !newData.codewarsrank || !newData.githubprs, !newData.codewarsjspoints){
-		res.send({ result: "failure", message: "New data could not be saved, some input required" });
+	if (
+		(!newData.modulename || !newData.codewarsrank || !newData.githubprs,
+		!newData.codewarsjspoints)
+	) {
+		res.send({
+			result: "failure",
+			message: "New data could not be saved, some input required",
+		});
 	} else {
 		try {
-			db
-			.then((result) => res.send(result.rows));
-	const addNew =
-		"INSERT INTO milestone (modulename, date, codewarsrank, githubprs, codewarsjspoints) VALUES ($1, $2, $3, $4, $5) RETURNING id";
+			db.then((result) => res.send(result.rows));
+			const addNew =
+				"INSERT INTO milestone (modulename, date, codewarsrank, githubprs, codewarsjspoints) VALUES ($1, $2, $3, $4, $5) RETURNING id";
 
-	db.query(addNew, [
-        newData.modulename,
-		newData.date,
-		newData.codewarsrank,
-        newData.githubprs,
-		newData.codewarsjspoints,
-	]).then((result) => res.send(result));
-		} catch(error){
+			db.query(addNew, [
+				newData.modulename,
+				newData.date,
+				newData.codewarsrank,
+				newData.githubprs,
+				newData.codewarsjspoints,
+			]).then((result) => res.send(result));
+		} catch (error) {
 			logger.log(error);
 			res.status(500);
 		}
@@ -220,5 +216,28 @@ router.post("/register", async (req, res) => {
 	}
 });
 
+// code being passed from the frontend after github login authentication
+const CLIENT_ID = "09c0182882c809602d38";
+const CLIENT_SECRET = "cf2db1a636b118120852eedeab888d69f33a2a32";
+
+router.get("/getAccessToken", async function (req, res) {
+	// console.log(req.query.code);
+	const params =
+		"?client_id=" +
+		CLIENT_ID +
+		"&client_secret=" +
+		CLIENT_SECRET +
+		"&code=" +
+		req.query.code;
+
+	await fetch("https://github.com/login/oauth/access_token" + params, {
+		method: "POST",
+		headers: {
+			Accept: "Application/json",
+		},
+	})
+		.then((response) => response.json())
+		.then((data) => res.json(data));
+});
 
 export default router;
