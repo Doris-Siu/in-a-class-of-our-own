@@ -2,8 +2,15 @@ import { useState } from "react";
 import "./Register.css";
 import bannerImg from "../../Assets/register.jpg";
 import axios from "axios";
+import { useNavigate, Navigate } from "react-router-dom";
 
-const Register = () => {
+async function Register() {
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	const codeParam = urlParams.get("code");
+	urlParams.set("code", null);
+	localStorage.setItem("githubAuthCode", codeParam);
+	const navigate = useNavigate();
 	const [username, setUsername] = useState("");
 	const [github, setGithub] = useState("");
 	const [cohort, setCohort] = useState("");
@@ -27,7 +34,13 @@ const Register = () => {
 			console.log(err);
 		}
 	};
-
+	if (localStorage.getItem("githubAuthCode") != null) {
+		const resCheckUser = await axios.get("api/trainee/"+);
+		console.log(resCheckUser);
+		if (resCheckUser.data.success) {
+			return <Navigate to="../dashboard"></Navigate>;
+		}
+	}
 	return (
 		<div className="body">
 			<div className="banner">
@@ -80,5 +93,5 @@ const Register = () => {
 			</form>
 		</div>
 	);
-};
+}
 export default Register;
