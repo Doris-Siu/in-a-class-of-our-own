@@ -240,4 +240,17 @@ router.get("/getAccessToken", async function (req, res) {
 		.then((data) => res.json(data));
 });
 
+//get user data
+router.get("/getUserData", async function (req, res) {
+	req.get("Authorization"); //bearer access token to be passed
+	await fetch("https://api.github.com/user", {
+		method: "GET",
+		headers: {
+			Authorization: req.get("Authorization"),
+		},
+	})
+		.then((response) => response.json())
+		.then((data) => res.json(data));
+});
+
 export default router;
