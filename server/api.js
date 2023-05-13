@@ -20,7 +20,7 @@ router.get("/trainee", (req, res) => {
 	}
 });
 
-/get specific trainee/ check if this trainee already exists
+//get specific trainee/ check if this trainee already exists
 router.get("/trainee/:githubusername", (req, res) => {
     try {
         db.query("SELECT * FROM trainee WHERE githubusername = $1", [
