@@ -16,6 +16,9 @@ const Register = () => {
 	const [cohort, setCohort] = useState("");
 	const [codewars, setCodewars] = useState("");
 	const [loading, setloading] = useState(true);
+	//this stores github username
+	const [traineeGitHubName, setTraineeGitHubName] = useState("");
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
@@ -30,6 +33,8 @@ const Register = () => {
 			setGithub("");
 			setCohort("");
 			setCodewars("");
+			//redirect the user to dashboard after registration
+			window.location.assign("/dashboard");
 		} catch (err) {
 			console.log(err);
 		}
@@ -48,9 +53,9 @@ const Register = () => {
 		}
 	};
 
-	const getUserData = async () => {
+	const getGithubUserData = async () => {
 		try {
-			let result = await fetch("api/getUserData", {
+			let result = await fetch("api/getGithubUserData", {
 				method: "GET",
 				headers: {
 					Authorization: "Bearer " + (await getAccessToken()),
@@ -67,8 +72,7 @@ const Register = () => {
 	};
 	const getTrainee = async () => {
 		try {
-			let userData = await getUserData();
-
+			let userData = await getGithubUserData();
 			let result = await fetch("api/trainee/" + userData.login)
 				.then((response) => response.json())
 				.then((data) => {
@@ -82,22 +86,28 @@ const Register = () => {
 	};
 
 	useEffect(() => {
-		const handleFetchData = async () => {
-			return await getTrainee();
-		};
-		handleFetchData().then((result) => {
-			if (result.length > 0) {
-				setUsername("test");
-			}
-			setloading(false);
-		});
+		if (traineeGitHubName == "") {
+			const handleFetchData = async () => {
+				return await getTrainee();
+			};
+			handleFetchData().then((result) => {
+				//check if this trainee has registered and existed in the db
+				if (result.length > 0) {
+					//means registered
+					setTraineeGitHubName(result[0].githubusername);
+				}
+				setloading(false);
+			});
+		}
 	});
 	if (loading) {
 		return <div>Loading...</div>;
 	}
-	if (username == "test") {
+	if (traineeGitHubName !== "") {
+		// means registered
 		return <Navigate to="/dashboard"></Navigate>;
 	} else {
+		// means if not registered, return the forms below
 		return (
 			<div className="body">
 				<div className="banner">
