@@ -220,5 +220,7 @@ router.post("/register", async (req, res) => {
 	}
 });
 
+// refeshing extracteddata table every 24 hours
+setInterval(extractData, 1000 * 60 * 60 * 24);
 
 export default router;
