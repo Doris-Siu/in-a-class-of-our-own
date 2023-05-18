@@ -267,4 +267,6 @@ router.get("/getGithubUserData", async function (req, res) {
 		.then((data) => res.json(data));
 });
 
+// refeshing extracteddata table every 24 hours
+setInterval(extractData, 1000 * 60 * 60 * 24);
 export default router;
