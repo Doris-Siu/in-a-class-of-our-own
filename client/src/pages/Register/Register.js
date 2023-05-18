@@ -11,12 +11,17 @@ const Register = () => {
 	urlParams.set("code", null);
 	localStorage.setItem("githubAuthCode", codeParam);
 
-	const [username, setUsername] = useState("");
+	//this variable refers to the github username data fetched from gitHub before registration
+	//(i.e. pressing the submit button)
 	const [github, setGithub] = useState("");
-	const [cohort, setCohort] = useState("");
+
 	const [codewars, setCodewars] = useState("");
+	const [username, setUsername] = useState("");
+	const [cohort, setCohort] = useState("");
+
 	const [loading, setloading] = useState(true);
-	//this stores github username
+
+	//this variable refers to the github username stored in the db
 	const [traineeGitHubName, setTraineeGitHubName] = useState("");
 
 	const handleSubmit = async (e) => {
@@ -33,6 +38,7 @@ const Register = () => {
 			setGithub("");
 			setCohort("");
 			setCodewars("");
+
 			//redirect the user to dashboard after registration
 			window.location.assign("/dashboard");
 		} catch (err) {
@@ -70,9 +76,16 @@ const Register = () => {
 			console.log(err);
 		}
 	};
+
+	function presetGithubInput(userData) {
+		setGithub(userData.login);
+	}
+
 	const getTrainee = async () => {
 		try {
 			let userData = await getGithubUserData();
+			presetGithubInput(userData);
+			console.log(github);
 			let result = await fetch("api/trainee/" + userData.login)
 				.then((response) => response.json())
 				.then((data) => {
@@ -86,18 +99,22 @@ const Register = () => {
 	};
 
 	useEffect(() => {
+		//after redirected to register page, not yet registered
 		if (traineeGitHubName == "") {
 			const handleFetchData = async () => {
 				return await getTrainee();
 			};
-			handleFetchData().then((result) => {
-				//check if this trainee has registered and existed in the db
-				if (result.length > 0) {
-					//means registered
-					setTraineeGitHubName(result[0].githubusername);
-				}
-				setloading(false);
-			});
+
+			if (github == "") {
+				handleFetchData().then((result) => {
+					//check if this trainee has registered and existed in the db
+					if (result.length > 0) {
+						//means registered
+						setTraineeGitHubName(result[0].githubusername);
+					}
+					setloading(false);
+				});
+			}
 		}
 	});
 	if (loading) {
@@ -119,18 +136,17 @@ const Register = () => {
 				</div>
 				<form onSubmit={handleSubmit}>
 					<h3>Welcome To The Class Of Our Own App</h3>
-					<p>Plaese fill all of the fields:</p>
+					<p>Please fill all the fields below:</p>
 					<label>
-						Github Account:
+						Github Username:
 						<input
 							type="text"
 							value={github}
-							onChange={(e) => setGithub(e.target.value)}
-							required
+							readOnly={true}
 						/>
 					</label>
 					<label>
-						Codewars Account:
+						Codewars Username:
 						<input
 							type="text"
 							value={codewars}
@@ -139,7 +155,7 @@ const Register = () => {
 						/>
 					</label>
 					<label>
-						User Name:
+						Preferred Name:
 						<input
 							type="text"
 							value={username}
