@@ -2,29 +2,39 @@ import "./Overview.css";
 import "chart.js/auto";
 import { Chart } from "react-chartjs-2";
 import getFinalScore from "../../Functions/checkMilestone";
-import { useState } from "react";
 
 const Overview = ({ data }) => {
+	let { githubprs, codewarsrank, codewarsjspoints } = data[1][0];
+	let {
+		githubprs: milPR,
+		codewarsrank: milCWR,
+		codewarsjspoints: milCWJP,
+	} = data[2];
+	let prsCompare = comparison(githubprs, milPR);
+	console.log("prsCompare:", prsCompare);
+	let codewarRankCompare = comparison(codewarsrank, milCWR);
+	console.log("codewarRankCompare:", codewarRankCompare);
+	let codewarPointsCompare = comparison(codewarsjspoints, milCWJP);
+	console.log("codewarPointsCompare:", codewarPointsCompare);
 	console.log(data, "overview data");
 
-	const [ownProgress, setOwnProgress] = useState(null);
-	const [cyfProgress, setCyfProgress] = useState(null);
-	const [loading, setLoding] = useState(false);
-	const [error, setError] = useState(null);
+	function comparison(user, milestone) {
+		if (user === 0) {
+			return 0;
+		}
 
-	let score = getFinalScore([25, 400], [25, 400]);
+		let sum = ((milestone * 100) / user).toFixed(2);
+		if (user > milestone) {
+			return 100;
+		}
+		return sum;
+	}
 
-	const traineeChartData = {
-		labels: ["Codewars", "# of PRs"],
-		datasets: [
-			{
-				data: [12, 19],
-				backgroundColor: ["rgba(252, 3, 3)", "rgb(15, 183, 26)"],
-				borderColor: ["rgba(252, 3, 3)", "rgb(15, 183, 26)"],
-				borderWidth: 1,
-			},
-		],
-	};
+	let score = getFinalScore(
+		[githubprs, codewarsrank, codewarsjspoints],
+		[milPR, milCWR, milCWJP[(githubprs, codewarsrank, codewarsjspoints)]]
+	);
+
 	const cohortChartData = {
 		labels: ["Behind", "At", "Beyond"],
 		datasets: [
@@ -50,18 +60,42 @@ const Overview = ({ data }) => {
 			<div className="card overview-title">
 				<p>YOUR CURRENT STATUS</p>
 				<div>
-					<p>
-						YOU ARE {score} {data[0][0].id}
-					</p>
+					<p>YOU ARE {score}</p>
 				</div>
 			</div>
 			<div className="charts-container">
 				<div className="card chart-card">
-					<div>
-						<p>My Own Progress</p>
-						<p>Github PRs & Codewars</p>
+					<div className="my-progress">
+						<p>My Progress</p>
 						<div>
-							<Chart type="pie" data={traineeChartData} />
+							<p>My Github PRs : {githubprs}</p>
+							<p>Milestone PRs : {milPR}</p>
+							<div className="progress-container">
+								<div
+									className="progress"
+									style={{ width: `${prsCompare}%` }}
+								></div>
+							</div>
+						</div>
+						<div>
+							<p>My codewars rank : {codewarsrank}</p>
+							<p>Milestone codewars rank : {milCWR}</p>
+							<div className="progress-container">
+								<div
+									className="progress"
+									style={{ width: `${codewarRankCompare}%` }}
+								></div>
+							</div>
+						</div>
+						<div>
+							<p>My codewars point : {codewarsjspoints}</p>
+							<p>Milestone codewars point : {milCWJP}</p>
+							<div className="progress-container">
+								<div
+									className="progress"
+									style={{ width: `${codewarsjspoints}` }}
+								></div>
+							</div>
 						</div>
 					</div>
 				</div>

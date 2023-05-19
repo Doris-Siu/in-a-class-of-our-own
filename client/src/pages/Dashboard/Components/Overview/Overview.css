@@ -39,7 +39,7 @@
 	width: 140px;
 }
 
-.loading{
+.loading {
 	width: 140px;
 }
 
@@ -48,11 +48,36 @@
 	margin: 0 0 20px;
 }
 
+.chart-card > div > p:first-child {
+	font-weight: 800;
+}
+
 .chart-card > div > div {
 	width: 100%;
 	display: flex;
-	align-items: center;
 	justify-content: center;
+}
+
+.progress {
+	height: 30px;
+	background-color: rgb(15, 183, 26);
+}
+
+.progress-container {
+	overflow: hidden;
+	border: 1px solid black;
+	width: 260px;
+	height: 30px;
+	margin-bottom: 10px;
+}
+
+.my-progress > div{
+flex-direction: column;}
+
+.my-progress > div > p {
+	text-align: left;
+	margin: 0;
+	padding: 4px 0;
 }
 
 @media only screen and (min-width: 900px) {
