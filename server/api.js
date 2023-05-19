@@ -267,6 +267,62 @@ router.get("/getGithubUserData", async function (req, res) {
 		.then((data) => res.json(data));
 });
 
+
+// milestone status endpoint and related functions -- VERY IMPORTANT COMPILATION MULTIPLE TABLES AND SEND DATA TO FRONTEND
+router.get("/milestonestatus/:githubusername", async (req, res) => {
+	try {
+		const gitUser = req.params.githubusername;
+		const cyfMilestone = await getLastestCyfMilestone();
+		const latestFromExtracteddata = await getLatestExtractedData();
+
+		// ADDED filter by github name from latestExtracteddata array which contains all trainees
+		const filterGitUserFromLastestExtracteddata =
+			latestFromExtracteddata.filter(
+				(gitUserName) => gitUserName.githubusername === gitUser
+			);
+		// ADDED could we send an array of 3 items ??
+		const sendList = [
+			latestFromExtracteddata,
+			filterGitUserFromLastestExtracteddata,
+			cyfMilestone,
+		];
+		res.send(sendList);
+	} catch (error) {
+		logger.log(error);
+		res.status(500).send(error);
+	}
+});
+
+// Function to get latest cyf milestone table
+const getLastestCyfMilestone = async () => {
+	const results = await db.query("SELECT MAX(date::date) AS latest_date FROM milestone");
+	const date = results.rows[0].latest_date;
+	const msResult = await db.query("SELECT * FROM milestone WHERE date = $1", [date]);
+	return msResult.rows[0];
+};
+
+// Following fucntion can be useful to getTraineeByName fucntion
+// const getTraineeByName = async (githubName) => {
+// 	const results = await db.query(
+// 		"SELECT t.githubusername, e.* FROM extracteddata as e inner join trainee as t on e.traineeid = t.id WHERE t.githubusername = $1",[githubName]);
+// 	return results.rows.splice(-1);
+// };
+
+// Function to get latest info from exracteddata table
+const getLatestExtractedData = async () => {
+	const results = await db.query(
+		"SELECT MAX(timestamp) AS latest_date FROM extracteddata"
+	);
+	const date = results.rows[0].latest_date;
+	const msResult = await db.query(
+		"SELECT t.*, e.* FROM extracteddata as e inner join trainee as t on e.traineeid = t.id WHERE timestamp = $1",
+		[date]
+	);
+	return msResult.rows;
+};
+
+
 // refeshing extracteddata table every 24 hours
 setInterval(extractData, 1000 * 60 * 60 * 24);
+
 export default router;
