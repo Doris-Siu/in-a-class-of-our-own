@@ -4,6 +4,8 @@ import bannerImg from "../../Assets/register.jpg";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 import { useGlobalContext } from "../../Components/context";
+import loadingGif from "../../Assets/loading.gif";
+
 
 const Register = () => {
 	const { setGlobalgithubName } = useGlobalContext();
@@ -124,7 +126,11 @@ const Register = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	if (loading) {
-		return <div>Loading...</div>;
+		return (
+			<div className="loadingPage">
+				<img src={loadingGif} alt="loading" className="loadingStatus" />
+			</div>
+		);
 	}
 	if (traineeGitHubName !== "") {
 		// means registered
