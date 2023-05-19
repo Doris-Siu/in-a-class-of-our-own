@@ -35,9 +35,12 @@
 .overview p {
 	font-size: 16px;
 }
+.loading {
+	width: 140px;
+}
 
-.charts-container {
-	margin: 50px auto;
+.loading{
+	width: 140px;
 }
 
 .chart-card {
@@ -45,13 +48,11 @@
 	margin: 0 0 20px;
 }
 
-.chart-card > div p:first-child {
-	font-size: 26px;
-	font-weight: 700;
-}
-
 .chart-card > div > div {
 	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 @media only screen and (min-width: 900px) {

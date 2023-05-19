@@ -3,8 +3,10 @@ import "./Register.css";
 import bannerImg from "../../Assets/register.jpg";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
+import { useGlobalContext } from "../../Components/context";
 
 const Register = () => {
+	const { setGlobalgithubName } = useGlobalContext();
 	const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
 	const codeParam = urlParams.get("code");
@@ -84,8 +86,9 @@ const Register = () => {
 	const getTrainee = async () => {
 		try {
 			let userData = await getGithubUserData();
+			// set to global context
+			setGlobalgithubName(userData.login);
 			presetGithubInput(userData);
-			console.log(github);
 			let result = await fetch("api/trainee/" + userData.login)
 				.then((response) => response.json())
 				.then((data) => {
@@ -116,7 +119,9 @@ const Register = () => {
 				});
 			}
 		}
-	});
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 	if (loading) {
 		return <div>Loading...</div>;
 	}
@@ -130,7 +135,6 @@ const Register = () => {
 				<div className="banner">
 					<img src={bannerImg} alt="register" />
 					<div className="color-overlay">
-						{" "}
 						<h2>Keep Track Of Your Milestone</h2>
 					</div>
 				</div>
