@@ -27,7 +27,7 @@ const Dashboard = () => {
 		console.log("savedValue:", savedValue);
 		async function fetchData() {
 			try {
-				const response = await axios.get("api/milestonestatus/Doris-Siu");
+				const response = await axios.get(`api/milestonestatus/${githubName}`);
 				console.log(response.data);
 				setData(response.data);
 				setIsLoading(false);
