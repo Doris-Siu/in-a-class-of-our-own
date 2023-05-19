@@ -268,7 +268,7 @@ router.get("/getGithubUserData", async function (req, res) {
 });
 
 
-// milestone status endpoint and related functions -- VERY IMPORTANT COMPILATION MULTIPLE TABLES AND SEND DATA TO FRONTEND
+// milestone status endpoint and related functions -- VERY IMPORTANT COMPILATION OF MULTIPLE TABLES, FILTER AND SEND DATA TO FRONTEND
 router.get("/milestonestatus/:githubusername", async (req, res) => {
 	try {
 		const gitUser = req.params.githubusername;
