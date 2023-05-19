@@ -2,39 +2,17 @@ import "./Overview.css";
 import "chart.js/auto";
 import { Chart } from "react-chartjs-2";
 import getFinalScore from "../../Functions/checkMilestone";
-import { useGlobalContext } from "../../../../Components/context";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState } from "react";
 import loadingGif from "../../../../Assets/loading.gif";
 
-const Overview = () => {
+const Overview = ({ data }) => {
+	console.log(data,"overview data");
+
 	const [ownProgress, setOwnProgress] = useState(null);
 	const [cyfProgress, setCyfProgress] = useState(null);
 	const [loading, setLoding] = useState(false);
 	const [error, setError] = useState(null);
-	const [githubName, setGithubName] = useState(
-		useGlobalContext().globalgithubName
-	);
 
-	useEffect(() => {
-		if (githubName) {
-			// Save a value in local storage
-			localStorage.setItem("githubName", githubName);
-		}
-		// Retrieve a value from local storage
-		const savedValue = localStorage.getItem("githubName");
-		setGithubName(savedValue);
-		async function fetchData() {
-			try {
-				const response = await axios.get("https://example.com/api/data");
-				setData(response.data);
-			} catch (error) {
-				setError(error.message);
-			}
-		}
-		fetchData();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
 
 	let score = getFinalScore([25, 400], [25, 400]);
 
@@ -75,7 +53,7 @@ const Overview = () => {
 				<p>YOUR CURRENT STATUS</p>
 				<div>
 					<p>
-						YOU ARE AT {score} {githubName}
+						YOU ARE {score} {data[0][0].id}
 					</p>
 				</div>
 			</div>

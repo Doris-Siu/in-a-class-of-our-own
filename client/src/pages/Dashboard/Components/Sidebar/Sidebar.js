@@ -1,18 +1,19 @@
 import { NavLink } from "react-router-dom";
 
 import "./Sidebar.css";
-// import
 
-const Sidebar = () => {
+const Sidebar = ({ data }) => {
 	return (
 		<div className="sidebar">
 			<div className="sidebar-head">
-				<h2>user name</h2>
-				<p>cohort name</p>
+				<h2>{data.displayname}</h2>
+				<p>{data.cohort}</p>
 			</div>
 			<ul className="side-links">
 				<li>
-					<NavLink to="" end>Overview</NavLink>
+					<NavLink to="" end>
+						Overview
+					</NavLink>
 				</li>
 				<li>
 					<NavLink to="set-milestone">Set Milestone</NavLink>

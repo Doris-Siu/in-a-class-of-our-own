@@ -10,7 +10,6 @@ const CyfMilestone = () => {
 			try {
 				const response = await fetch("/api/milestone");
 				const json = await response.json();
-				console.log(json);
 				setTable(json);
 			} catch (error) {
 				console.log(error);
