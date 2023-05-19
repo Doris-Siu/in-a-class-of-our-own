@@ -324,3 +324,8 @@ const getLatestExtractedData = async () => {
 setInterval(extractData, 1000 * 60 * 60 * 24);
 
 export default router;
+
+//define client_id from server
+router.get("/clientId", (_, res) => {
+	res.json({ client_id: process.env.CLIENT_ID });
+});

@@ -4,21 +4,24 @@ import { FaBars, FaGithub } from "react-icons/fa";
 import "./Header.css";
 import { useState } from "react";
 
-
 const Header = () => {
 	const [showLinks, setShowLinks] = useState(false);
 	const [rotate, setRotate] = useState(false);
-
 
 	function openHiddenLinks() {
 		setRotate(!rotate);
 		setShowLinks(!showLinks);
 	}
 
-	function loginWithGithub() {
-		window.location.assign(
-			"https://github.com/login/oauth/authorize?client_id=" + process.env.CLIENT_ID
-		);
+	async function loginWithGithub() {
+		//get client_id from server
+		await fetch("api/clientId")
+			.then((response) => response.json())
+			.then((data) => {
+				window.location.assign(
+					"https://github.com/login/oauth/authorize?client_id=" + data.client_id
+				);
+			});
 	}
 
 	return (
