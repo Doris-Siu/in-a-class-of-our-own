@@ -1,28 +1,23 @@
 import "./DashboardHeader.css";
 import { BiLogOut } from "react-icons/bi";
-
+import axios from "axios";
 const DashboardHeader = () => {
-// 	function handleClick( {
-// 		// Octokit.js
-// // https://github.com/octokit/core.js#readme
-// const octokit = new Octokit({
-//   auth: 'YOUR-TOKEN'
-// })
-
-// await octokit.request('DELETE /applications/{client_id}/grant', {
-//   client_id: 'Iv1.8a61f9b3a7aba766',
-//   access_token: 'e72e16c7e42f292c6912e7710c838347ae178b4a',
-//   headers: {
-//     'X-GitHub-Api-Version': '2022-11-28'
-//   }
-// })
-// 	})
+	async function handleClick() {
+		//call delete oauth app grant in api.js
+		await axios.delete("api/applications/grant", {
+			data: {
+				accessToken: window.localStorage.getItem("accessToken"),
+			},
+		});
+		//redirect to home page
+		window.location.assign("/");
+	}
 	return (
 		<div className="dash-header">
 			<a href="/dashboard">Dashboard</a>
 			<ul>
 				<li>
-					<button aria-label="Log out">
+					<button onClick={handleClick} aria-label="Log out">
 						<BiLogOut />
 					</button>
 				</li>
