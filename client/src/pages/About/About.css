@@ -1,7 +1,8 @@
 @import url("../../pages/Home.css");
 
-.main-conatianer {
+.main-container {
 	padding: 10px;
+	min-height: 73.8vh;
 }
 
 .class-img {
