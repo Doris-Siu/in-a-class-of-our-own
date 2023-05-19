@@ -4,7 +4,6 @@ import { FaBars, FaGithub } from "react-icons/fa";
 import "./Header.css";
 import { useState } from "react";
 
-const CLIENT_ID = "09c0182882c809602d38";
 
 const Header = () => {
 	const [showLinks, setShowLinks] = useState(false);
@@ -18,7 +17,7 @@ const Header = () => {
 
 	function loginWithGithub() {
 		window.location.assign(
-			"https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID
+			"https://github.com/login/oauth/authorize?client_id=" + process.env.CLIENT_ID
 		);
 	}
 

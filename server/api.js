@@ -230,17 +230,15 @@ router.post("/register", async (req, res) => {
 	}
 });
 
-// code being passed from the frontend after github login authentication
-const CLIENT_ID = "09c0182882c809602d38";
-const CLIENT_SECRET = "cf2db1a636b118120852eedeab888d69f33a2a32";
+
 
 router.get("/getAccessToken", async function (req, res) {
 	// console.log(req.query.code);
 	const params =
 		"?client_id=" +
-		CLIENT_ID +
+		process.env.CLIENT_ID +
 		"&client_secret=" +
-		CLIENT_SECRET +
+		process.env.CLIENT_SECRET +
 		"&code=" +
 		req.query.code;
 
