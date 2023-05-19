@@ -2,7 +2,9 @@ import { Router } from "express";
 
 import logger from "./utils/logger";
 import db from "./db";
-
+import { Octokit } from "@octokit/core";
+import { createOAuthAppAuth } from "@octokit/auth-oauth-app";
+import config from "./utils/config";
 const router = Router();
 
 router.get("/", (_, res) => {
@@ -22,16 +24,16 @@ router.get("/trainee", (req, res) => {
 
 //get specific trainee/ check if this trainee already exists
 router.get("/trainee/:githubusername", (req, res) => {
-    try {
-        db.query("SELECT * FROM trainee WHERE githubusername = $1", [
-            req.params.githubusername,
-        ]).then((result) => {
-            res.send(result.rows);
-        });
-    } catch (error) {
-        logger.log(error);
-        res.status(500);
-    }
+	try {
+		db.query("SELECT * FROM trainee WHERE githubusername = $1", [
+			req.params.githubusername,
+		]).then((result) => {
+			res.send(result.rows);
+		});
+	} catch (error) {
+		logger.log(error);
+		res.status(500);
+	}
 });
 
 router.post("/trainee", (req, res) => {
@@ -230,17 +232,13 @@ router.post("/register", async (req, res) => {
 	}
 });
 
-// code being passed from the frontend after github login authentication
-const CLIENT_ID = "09c0182882c809602d38";
-const CLIENT_SECRET = "cf2db1a636b118120852eedeab888d69f33a2a32";
-
 router.get("/getAccessToken", async function (req, res) {
 	// console.log(req.query.code);
 	const params =
 		"?client_id=" +
-		CLIENT_ID +
+		process.env.CLIENT_ID +
 		"&client_secret=" +
-		CLIENT_SECRET +
+		process.env.CLIENT_SECRET +
 		"&code=" +
 		req.query.code;
 
@@ -295,9 +293,13 @@ router.get("/milestonestatus/:githubusername", async (req, res) => {
 
 // Function to get latest cyf milestone table
 const getLastestCyfMilestone = async () => {
-	const results = await db.query("SELECT MAX(date::date) AS latest_date FROM milestone");
+	const results = await db.query(
+		"SELECT MAX(date::date) AS latest_date FROM milestone"
+	);
 	const date = results.rows[0].latest_date;
-	const msResult = await db.query("SELECT * FROM milestone WHERE date = $1", [date]);
+	const msResult = await db.query("SELECT * FROM milestone WHERE date = $1", [
+		date,
+	]);
 	return msResult.rows[0];
 };
 
@@ -321,8 +323,36 @@ const getLatestExtractedData = async () => {
 	return msResult.rows;
 };
 
-
 // refeshing extracteddata table every 24 hours
 setInterval(extractData, 1000 * 60 * 60 * 24);
 
 export default router;
+
+//define client_id from server
+router.get("/clientId", (_, res) => {
+	res.json({ client_id: process.env.CLIENT_ID });
+});
+
+router.delete("/applications/grant", async (req, res) => {
+	try {
+		//create a octokit client for oauth
+		const octokit = new Octokit({
+			authStrategy: createOAuthAppAuth,
+			auth: {
+				clientId: config.client_id,
+				clientSecret: config.client_secret,
+			},
+		});
+		//delete the grant for particular client_id
+		await octokit.request("DELETE /applications/{client_id}/grant", {
+			client_id: config.client_id,
+			access_token: req.body.accessToken,
+			headers: {
+				"X-GitHub-Api-Version": "2022-11-28",
+			},
+		});
+		res.send(true);
+	} catch (error) {
+		res.send(false);
+	}
+});

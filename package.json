@@ -72,6 +72,8 @@
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.21.0",
+		"@octokit/auth-oauth-app": "^5.0.5",
+		"@octokit/core": "^4.2.1",
 		"axios": "^1.4.0",
 		"cdbreact": "^1.5.14",
 		"chart.js": "^4.3.0",

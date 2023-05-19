@@ -53,6 +53,7 @@ const Register = () => {
 			let result = await fetch("api/getAccessToken?code=" + codeParam)
 				.then((response) => response.json())
 				.then((data) => {
+					localStorage.setItem("accessToken", data.access_token);
 					return data.access_token;
 				});
 			return result;
