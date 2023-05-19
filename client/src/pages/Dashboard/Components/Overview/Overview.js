@@ -4,13 +4,18 @@ import { Chart } from "react-chartjs-2";
 import getFinalScore from "../../Functions/checkMilestone";
 import { useGlobalContext } from "../../../../Components/context";
 import { useState, useEffect } from "react";
+import axios from "axios";
+import loadingGif from "../../../../Assets/loading.gif";
 
 const Overview = () => {
-	console.log(useGlobalContext().globalgithubName, "coming");
-	let [githubName, setGithubName] = useState(
+	const [ownProgress, setOwnProgress] = useState(null);
+	const [cyfProgress, setCyfProgress] = useState(null);
+	const [loading, setLoding] = useState(false);
+	const [error, setError] = useState(null);
+	const [githubName, setGithubName] = useState(
 		useGlobalContext().globalgithubName
 	);
-	console.log(githubName);
+
 	useEffect(() => {
 		if (githubName) {
 			// Save a value in local storage
@@ -19,6 +24,15 @@ const Overview = () => {
 		// Retrieve a value from local storage
 		const savedValue = localStorage.getItem("githubName");
 		setGithubName(savedValue);
+		async function fetchData() {
+			try {
+				const response = await axios.get("https://example.com/api/data");
+				setData(response.data);
+			} catch (error) {
+				setError(error.message);
+			}
+		}
+		fetchData();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -70,7 +84,13 @@ const Overview = () => {
 					<div>
 						<p>My Own Progress</p>
 						<p>Github PRs & Codewars</p>
-						<Chart type="pie" data={traineeChartData} />
+						<div>
+							{loading ? (
+								<img src={loadingGif} alt="loading" className="loading" />
+							) : (
+								<Chart type="pie" data={traineeChartData} />
+							)}
+						</div>
 					</div>
 				</div>
 				<div className="card chart-card">
@@ -78,7 +98,11 @@ const Overview = () => {
 						<p>My Cohort Progress</p>
 						<p>Other trainees milestone</p>
 						<div>
-							<Chart type="pie" data={cohortChartData} />
+							{loading ? (
+								<img src={loadingGif} alt="loading" className="loading" />
+							) : (
+								<Chart type="pie" data={cohortChartData} />
+							)}
 						</div>
 					</div>
 				</div>

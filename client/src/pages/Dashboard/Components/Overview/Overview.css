@@ -39,6 +39,10 @@
 	width: 140px;
 }
 
+.loading{
+	width: 140px;
+}
+
 .chart-card {
 	width: 300px;
 	margin: 0 0 20px;
@@ -49,10 +53,6 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-}
-
-.chart-card > div > div {
-	width: 100%;
 }
 
 @media only screen and (min-width: 900px) {

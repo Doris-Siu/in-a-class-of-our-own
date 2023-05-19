@@ -32,10 +32,8 @@
 
 /* ACTIVE LINK */
 .side-links a.active {
-  color: var(--red);
+	color: var(--red);
 }
-
-
 
 .side-links li a {
 	text-decoration: none;
