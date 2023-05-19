@@ -5,6 +5,7 @@ import getFinalScore from "../../Functions/checkMilestone";
 
 const Overview = ({ data }) => {
 	let { githubprs, codewarsrank, codewarsjspoints } = data[1][0];
+	console.log("githubprs:", githubprs);
 	let {
 		githubprs: milPR,
 		codewarsrank: milCWR,
@@ -32,7 +33,7 @@ const Overview = ({ data }) => {
 
 	let score = getFinalScore(
 		[githubprs, codewarsrank, codewarsjspoints],
-		[milPR, milCWR, milCWJP[(githubprs, codewarsrank, codewarsjspoints)]]
+		[milPR, milCWR, milCWJP]
 	);
 
 	const cohortChartData = {
@@ -60,7 +61,7 @@ const Overview = ({ data }) => {
 			<div className="card overview-title">
 				<p>YOUR CURRENT STATUS</p>
 				<div>
-					<p>YOU ARE {score}</p>
+					<p>YOU ARE {score} MILESTONE</p>
 				</div>
 			</div>
 			<div className="charts-container">

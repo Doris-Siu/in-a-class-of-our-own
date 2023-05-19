@@ -30,7 +30,7 @@ const getFinalScore = (actualScoreArr, atMilestoneScoreArr) => {
 	} else if (traineeStatus === 2) {
 		return "AT";
 	} else {
-		("BEYOND");
+		return "BEYOND";
 	}
 };
 export default getFinalScore;
