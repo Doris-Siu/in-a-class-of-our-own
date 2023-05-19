@@ -3,16 +3,14 @@ import "chart.js/auto";
 import { Chart } from "react-chartjs-2";
 import getFinalScore from "../../Functions/checkMilestone";
 import { useState } from "react";
-import loadingGif from "../../../../Assets/loading.gif";
 
 const Overview = ({ data }) => {
-	console.log(data,"overview data");
+	console.log(data, "overview data");
 
 	const [ownProgress, setOwnProgress] = useState(null);
 	const [cyfProgress, setCyfProgress] = useState(null);
 	const [loading, setLoding] = useState(false);
 	const [error, setError] = useState(null);
-
 
 	let score = getFinalScore([25, 400], [25, 400]);
 
@@ -63,11 +61,7 @@ const Overview = ({ data }) => {
 						<p>My Own Progress</p>
 						<p>Github PRs & Codewars</p>
 						<div>
-							{loading ? (
-								<img src={loadingGif} alt="loading" className="loading" />
-							) : (
-								<Chart type="pie" data={traineeChartData} />
-							)}
+							<Chart type="pie" data={traineeChartData} />
 						</div>
 					</div>
 				</div>
@@ -76,11 +70,7 @@ const Overview = ({ data }) => {
 						<p>My Cohort Progress</p>
 						<p>Other trainees milestone</p>
 						<div>
-							{loading ? (
-								<img src={loadingGif} alt="loading" className="loading" />
-							) : (
-								<Chart type="pie" data={cohortChartData} />
-							)}
+							<Chart type="pie" data={cohortChartData} />
 						</div>
 					</div>
 				</div>
