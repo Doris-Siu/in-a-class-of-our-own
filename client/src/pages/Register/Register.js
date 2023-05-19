@@ -86,10 +86,8 @@ const Register = () => {
 	const getTrainee = async () => {
 		try {
 			let userData = await getGithubUserData();
-
 			// set to global context
 			setGlobalgithubName(userData.login);
-
 			presetGithubInput(userData);
 			let result = await fetch("api/trainee/" + userData.login)
 				.then((response) => response.json())
@@ -105,12 +103,12 @@ const Register = () => {
 
 	useEffect(() => {
 		//after redirected to register page, not yet registered
-		if (traineeGitHubName === "") {
+		if (traineeGitHubName == "") {
 			const handleFetchData = async () => {
 				return await getTrainee();
 			};
 
-			if (github === "") {
+			if (github == "") {
 				handleFetchData().then((result) => {
 					//check if this trainee has registered and existed in the db
 					if (result.length > 0) {
@@ -145,7 +143,11 @@ const Register = () => {
 					<p>Please fill all the fields below:</p>
 					<label>
 						Github Username:
-						<input type="text" value={github} readOnly={true} />
+						<input
+							type="text"
+							value={github}
+							readOnly={true}
+						/>
 					</label>
 					<label>
 						Codewars Username:
