@@ -2,8 +2,26 @@ import "./Overview.css";
 import "chart.js/auto";
 import { Chart } from "react-chartjs-2";
 import getFinalScore from "../../Functions/checkMilestone";
+import { useGlobalContext } from "../../../../Components/context";
+import { useState, useEffect } from "react";
 
 const Overview = () => {
+	console.log(useGlobalContext().globalgithubName, "coming");
+	let [githubName, setGithubName] = useState(
+		useGlobalContext().globalgithubName
+	);
+	console.log(githubName);
+	useEffect(() => {
+		if (githubName) {
+			// Save a value in local storage
+			localStorage.setItem("githubName", githubName);
+		}
+		// Retrieve a value from local storage
+		const savedValue = localStorage.getItem("githubName");
+		setGithubName(savedValue);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
 	let score = getFinalScore([25, 400], [25, 400]);
 
 	const traineeChartData = {
@@ -42,7 +60,9 @@ const Overview = () => {
 			<div className="card overview-title">
 				<p>YOUR CURRENT STATUS</p>
 				<div>
-					<p>YOU ARE AT {score}</p>
+					<p>
+						YOU ARE AT {score} {githubName}
+					</p>
 				</div>
 			</div>
 			<div className="charts-container">
