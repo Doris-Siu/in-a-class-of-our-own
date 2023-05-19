@@ -5,19 +5,14 @@ import getFinalScore from "../../Functions/checkMilestone";
 
 const Overview = ({ data }) => {
 	let { githubprs, codewarsrank, codewarsjspoints } = data[1][0];
-	console.log("githubprs:", githubprs);
 	let {
 		githubprs: milPR,
 		codewarsrank: milCWR,
 		codewarsjspoints: milCWJP,
 	} = data[2];
 	let prsCompare = comparison(githubprs, milPR);
-	console.log("prsCompare:", prsCompare);
 	let codewarRankCompare = comparison(codewarsrank, milCWR);
-	console.log("codewarRankCompare:", codewarRankCompare);
 	let codewarPointsCompare = comparison(codewarsjspoints, milCWJP);
-	console.log("codewarPointsCompare:", codewarPointsCompare);
-	console.log(data, "overview data");
 
 	function comparison(user, milestone) {
 		if (user === 0) {
@@ -94,7 +89,7 @@ const Overview = ({ data }) => {
 							<div className="progress-container">
 								<div
 									className="progress"
-									style={{ width: `${codewarsjspoints}` }}
+									style={{ width: `${codewarPointsCompare}` }}
 								></div>
 							</div>
 						</div>
