@@ -30,7 +30,14 @@ const Dashboard = () => {
 				const response = await axios.get(`api/milestonestatus/${savedValue}`);
 				console.log(response.data);
 				setData(response.data);
-				setIsLoading(false);
+				setTimeout(async () => {
+					const response2 = await axios.get(
+						`api/milestonestatus/${savedValue}`
+					);
+					console.log(response2.data);
+					setData(response2.data);
+					setIsLoading(false);
+				}, 300);
 			} catch (error) {
 				console.log(error);
 			}
@@ -43,28 +50,16 @@ const Dashboard = () => {
 		return <div>Loading...</div>;
 	}
 
-	if (data[1].length > 0) {
-		return (
-			<div className="dashboard">
-				<DashboardHeader />
-				<DashboardSidebar data={data[1][0]} />
-				<Routes className="main-section">
-					<Route index element={<Overview data={data} />} />
-					<Route path="/set-milestone" element={<SetMilestone />} />
-					<Route path="/cyf-milestone" element={<CyfMilestone />} />
-				</Routes>
-			</div>
-		);
-	} else {
-		return (
-			<div className="dashboard">
-				<DashboardHeader />
-				<Routes className="main-section">
-					<Route path="/set-milestone" element={<SetMilestone />} />
-					<Route path="/cyf-milestone" element={<CyfMilestone />} />
-				</Routes>
-			</div>
-		);
-	}
+	return (
+		<div className="dashboard">
+			<DashboardHeader />
+			<DashboardSidebar data={data[1][0]} />
+			<Routes className="main-section">
+				<Route index element={<Overview data={data} />} />
+				<Route path="/set-milestone" element={<SetMilestone />} />
+				<Route path="/cyf-milestone" element={<CyfMilestone />} />
+			</Routes>
+		</div>
+	);
 };
 export default Dashboard;
