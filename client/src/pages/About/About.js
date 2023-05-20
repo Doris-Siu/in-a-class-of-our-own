@@ -3,7 +3,7 @@ import classImg from "../../Assets/cititec-class.jpg";
 
 
 const About = () => (
-	<main className="main-conatianer">
+	<main className="main-container">
 		<div className="about-container">
 			<div className="text-conatiner">
 				<h1>About CodeYourFuture</h1>

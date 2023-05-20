@@ -2,6 +2,7 @@
 
 .main-container {
 	padding: 10px;
+	min-height: 73.8vh;
 }
 
 .app-intro {
