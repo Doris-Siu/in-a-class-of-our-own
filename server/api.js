@@ -103,15 +103,23 @@ router.post("/extracteddata", (req, res) => {
 	}
 });
 
-const extractData = async () => {
-	const trainees = await getTrainees();
-
-	const today = new Date();
-
-	trainees.forEach(async (trainee) => {
-		const [rank, points] = await getCodewarInfo(trainee.codewarsusername);
-		const githubPrs = await getGithubInfo(trainee.githubusername);
-		insertExtractedData(trainee.id, rank, points, githubPrs, today);
+const extractData = () => {
+	getTrainees().then((trainees) => {
+		const today = new Date();
+		const promises = [];
+		trainees.forEach((trainee) => {
+			const promise = getCodewarInfo(trainee.codewarsusername).then(
+				([rank, points]) => {
+					getGithubInfo(trainee.githubusername).then((githubPrs) => {
+						insertExtractedData(trainee.id, rank, points, githubPrs, today);
+					});
+				}
+			);
+			promises.push(promise);
+		});
+		Promise.all(promises).then(() => {
+			return true;
+		});
 	});
 };
 
@@ -160,7 +168,7 @@ const getGithubInfo = async (userName) => {
 	}
 };
 
-const insertExtractedData = (
+const insertExtractedData = async (
 	traineeid,
 	codewarsrank,
 	codewarsjspoints,
@@ -219,14 +227,15 @@ router.post("/milestone", (req, res) => {
 });
 
 // Add user details (input) inside database
-router.post("/register", async (req, res) => {
+router.post("/register", (req, res) => {
 	try {
 		const { username, github, cohort, codewars } = req.body;
-		await db.query(
+		db.query(
 			"INSERT INTO trainee (displayname, githubusername, cohort, codewarsusername) VALUES ($1, $2, $3, $4)",
 			[username, github, cohort, codewars]
-		);
-		res.status(200).json({ success: true });
+		)
+			.then(extractData())
+			.then(res.status(200).json({ success: true }));
 	} catch (err) {
 		res.status(500).json({ message: "Server error" });
 	}
@@ -265,19 +274,25 @@ router.get("/getGithubUserData", async function (req, res) {
 		.then((data) => res.json(data));
 });
 
-
 // milestone status endpoint and related functions -- VERY IMPORTANT COMPILATION OF MULTIPLE TABLES, FILTER AND SEND DATA TO FRONTEND
 router.get("/milestonestatus/:githubusername", async (req, res) => {
 	try {
 		const gitUser = req.params.githubusername;
 		const cyfMilestone = await getLastestCyfMilestone();
-		const latestFromExtracteddata = await getLatestExtractedData();
-
-		// ADDED filter by github name from latestExtracteddata array which contains all trainees
-		const filterGitUserFromLastestExtracteddata =
-			latestFromExtracteddata.filter(
+		let latestFromExtracteddata, filterGitUserFromLastestExtracteddata;
+		let i = 0;
+		do {
+			latestFromExtracteddata = await getLatestExtractedData();
+			// ADDED filter by github name from latestExtracteddata array which contains all trainees
+			filterGitUserFromLastestExtracteddata = latestFromExtracteddata.filter(
 				(gitUserName) => gitUserName.githubusername === gitUser
 			);
+			i++;
+			if (i > 3) {
+				break;
+			}
+		} while (filterGitUserFromLastestExtracteddata.length === 0);
+
 		// ADDED could we send an array of 3 items ??
 		const sendList = [
 			latestFromExtracteddata,
