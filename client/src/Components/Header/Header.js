@@ -69,7 +69,7 @@ const Header = () => {
 					<NavLink to="/app">Application Info</NavLink>
 				</li>
 				<li>
-					<button>
+					<button onClick={loginWithGithub}>
 						Github Login
 						<FaGithub />
 					</button>
