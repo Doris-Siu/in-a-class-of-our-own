@@ -2,6 +2,19 @@
 	background-color: #f4f3ef;
 }
 
+.loadingStatus {
+	width: 140px;
+}
+
+.loadingPage {
+	display: flex;
+	justify-content: center;
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
 @media only screen and (min-width: 900px) {
 	.dashboard {
 		height: 100vh;

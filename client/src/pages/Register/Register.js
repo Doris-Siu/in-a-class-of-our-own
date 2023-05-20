@@ -38,11 +38,11 @@ const Register = () => {
 				codewars,
 			});
 			console.log(res.data);
+			setGlobalgithubName(github);
 			setUsername("");
 			setGithub("");
 			setCohort("");
 			setCodewars("");
-
 			//redirect the user to dashboard after registration
 			window.location.assign("/dashboard");
 		} catch (err) {
