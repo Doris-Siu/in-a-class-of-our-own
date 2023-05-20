@@ -84,8 +84,8 @@ const Overview = ({ data }) => {
 							</div>
 						</div>
 						<div>
-							<p>My codewars point : {codewarsjspoints}</p>
-							<p>Milestone codewars point : {milCWJP}</p>
+							<p>My codewars points : {codewarsjspoints}</p>
+							<p>Milestone codewars points : {milCWJP}</p>
 							<div className="progress-container">
 								<div
 									className="progress"
