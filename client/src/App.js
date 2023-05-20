@@ -9,8 +9,8 @@ const App = () => {
 	useEffect(() => {
 		const queryString = window.location.search;
 		const urlParams = new URLSearchParams(queryString);
+		// eslint-disable-next-line no-unused-vars
 		const codeParam = urlParams.get("code");
-		console.log(codeParam);
 	}, []);
 	return (
 		<>

@@ -10,7 +10,6 @@ const getFactorScore = (actualScore, atMilestoneScore) =>
 		: BEHIDE_SCORE;
 
 const getFinalScore = (actualScoreArr, atMilestoneScoreArr) => {
-	console.log(actualScoreArr);
 	if (!actualScoreArr || !atMilestoneScoreArr) {
 		console.error("array expected");
 		return null;
@@ -31,7 +30,7 @@ const getFinalScore = (actualScoreArr, atMilestoneScoreArr) => {
 	} else if (traineeStatus === 2) {
 		return "AT";
 	} else {
-		("BEYOND");
+		return "BEYOND";
 	}
 };
 export default getFinalScore;

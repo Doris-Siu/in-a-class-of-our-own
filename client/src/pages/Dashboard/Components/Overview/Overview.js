@@ -2,53 +2,35 @@ import "./Overview.css";
 import "chart.js/auto";
 import { Chart } from "react-chartjs-2";
 import getFinalScore from "../../Functions/checkMilestone";
-import { useGlobalContext } from "../../../../Components/context";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import loadingGif from "../../../../Assets/loading.gif";
 
-const Overview = () => {
-	const [ownProgress, setOwnProgress] = useState(null);
-	const [cyfProgress, setCyfProgress] = useState(null);
-	const [loading, setLoding] = useState(false);
-	const [error, setError] = useState(null);
-	const [githubName, setGithubName] = useState(
-		useGlobalContext().globalgithubName
+const Overview = ({ data }) => {
+	let { githubprs, codewarsrank, codewarsjspoints } = data[1][0];
+	let {
+		githubprs: milPR,
+		codewarsrank: milCWR,
+		codewarsjspoints: milCWJP,
+	} = data[2];
+	let prsCompare = comparison(githubprs, milPR);
+	let codewarRankCompare = comparison(codewarsrank, milCWR);
+	let codewarPointsCompare = comparison(codewarsjspoints, milCWJP);
+
+	function comparison(user, milestone) {
+		if (user === 0) {
+			return 0;
+		}
+
+		let sum = ((milestone * 100) / user).toFixed(2);
+		if (user > milestone) {
+			return 100;
+		}
+		return sum;
+	}
+
+	let score = getFinalScore(
+		[githubprs, codewarsrank, codewarsjspoints],
+		[milPR, milCWR, milCWJP]
 	);
 
-	useEffect(() => {
-		if (githubName) {
-			// Save a value in local storage
-			localStorage.setItem("githubName", githubName);
-		}
-		// Retrieve a value from local storage
-		const savedValue = localStorage.getItem("githubName");
-		setGithubName(savedValue);
-		async function fetchData() {
-			try {
-				const response = await axios.get("https://example.com/api/data");
-				setData(response.data);
-			} catch (error) {
-				setError(error.message);
-			}
-		}
-		fetchData();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
-	let score = getFinalScore([25, 400], [25, 400]);
-
-	const traineeChartData = {
-		labels: ["Codewars", "# of PRs"],
-		datasets: [
-			{
-				data: [12, 19],
-				backgroundColor: ["rgba(252, 3, 3)", "rgb(15, 183, 26)"],
-				borderColor: ["rgba(252, 3, 3)", "rgb(15, 183, 26)"],
-				borderWidth: 1,
-			},
-		],
-	};
 	const cohortChartData = {
 		labels: ["Behind", "At", "Beyond"],
 		datasets: [
@@ -74,22 +56,42 @@ const Overview = () => {
 			<div className="card overview-title">
 				<p>YOUR CURRENT STATUS</p>
 				<div>
-					<p>
-						YOU ARE AT {score} {githubName}
-					</p>
+					<p>YOU ARE {score} MILESTONE</p>
 				</div>
 			</div>
 			<div className="charts-container">
 				<div className="card chart-card">
-					<div>
-						<p>My Own Progress</p>
-						<p>Github PRs & Codewars</p>
+					<div className="my-progress">
+						<p>My Progress</p>
 						<div>
-							{loading ? (
-								<img src={loadingGif} alt="loading" className="loading" />
-							) : (
-								<Chart type="pie" data={traineeChartData} />
-							)}
+							<p>My Github PRs : {githubprs}</p>
+							<p>Milestone PRs : {milPR}</p>
+							<div className="progress-container">
+								<div
+									className="progress"
+									style={{ width: `${prsCompare}%` }}
+								></div>
+							</div>
+						</div>
+						<div>
+							<p>My codewars rank : {codewarsrank}</p>
+							<p>Milestone codewars rank : {milCWR}</p>
+							<div className="progress-container">
+								<div
+									className="progress"
+									style={{ width: `${codewarRankCompare}%` }}
+								></div>
+							</div>
+						</div>
+						<div>
+							<p>My codewars points : {codewarsjspoints}</p>
+							<p>Milestone codewars points : {milCWJP}</p>
+							<div className="progress-container">
+								<div
+									className="progress"
+									style={{ width: `${codewarPointsCompare}` }}
+								></div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -98,11 +100,7 @@ const Overview = () => {
 						<p>My Cohort Progress</p>
 						<p>Other trainees milestone</p>
 						<div>
-							{loading ? (
-								<img src={loadingGif} alt="loading" className="loading" />
-							) : (
-								<Chart type="pie" data={cohortChartData} />
-							)}
+							<Chart type="pie" data={cohortChartData} />
 						</div>
 					</div>
 				</div>
