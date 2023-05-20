@@ -10,19 +10,47 @@ const Overview = ({ data }) => {
 		codewarsrank: milCWR,
 		codewarsjspoints: milCWJP,
 	} = data[2];
-	let prsCompare = comparison(githubprs, milPR);
-	let codewarRankCompare = comparison(codewarsrank, milCWR);
-	let codewarPointsCompare = comparison(codewarsjspoints, milCWJP);
+	let prsCompare = comparison(githubprs, milPR, false);
+	let codewarRankCompare = comparison(codewarsrank, milCWR, true);
+	let codewarPointsCompare = comparison(codewarsjspoints, milCWJP, false);
 
-	function comparison(user, milestone) {
+	function handleColor(stat, elem) {
+		const obj = {
+			blue: "rgb(3, 82, 252)",
+			green: "rgb(15, 183, 26)",
+			red: "rgb(252, 3, 3)",
+		};
+		if (elem === "progress") {
+			return stat >= 100 ? obj.blue : stat < 50 ? obj.red : obj.green;
+		}
+		if (elem === "border") {
+			return `12px solid ${
+				stat === "BEYOND" ? obj.blue : stat === "AT" ? obj.green : obj.red
+			}`;
+		}
+		if (elem === "text") {
+			return `${
+				stat === "BEYOND" ? obj.blue : stat === "AT" ? obj.green : obj.red
+			}`;
+		}
+	}
+
+	function comparison(user, milestone, isItRank) {
+		if (isItRank) {
+			let temp = user;
+			user = milestone;
+			milestone = temp;
+		}
+
 		if (user === 0) {
 			return 0;
 		}
 
-		let sum = ((milestone * 100) / user).toFixed(2);
 		if (user > milestone) {
 			return 100;
 		}
+
+		let sum = (user / milestone).toFixed(2) * 100;
 		return sum;
 	}
 
@@ -53,10 +81,15 @@ const Overview = ({ data }) => {
 
 	return (
 		<div className="overview">
-			<div className="card overview-title">
+			<div
+				className="card overview-title"
+				style={{ borderBottom: `${handleColor(score, "border")}` }}
+			>
 				<p>YOUR CURRENT STATUS</p>
 				<div>
-					<p>YOU ARE {score} MILESTONE</p>
+					<p style={{ color: `${handleColor(score, "text")}` }}>
+						YOU ARE {score} MILESTONE
+					</p>
 				</div>
 			</div>
 			<div className="charts-container">
@@ -69,7 +102,10 @@ const Overview = ({ data }) => {
 							<div className="progress-container">
 								<div
 									className="progress"
-									style={{ width: `${prsCompare}%` }}
+									style={{
+										width: `${prsCompare}%`,
+										backgroundColor: `${handleColor(prsCompare, "progress")}`,
+									}}
 								></div>
 							</div>
 						</div>
@@ -79,7 +115,13 @@ const Overview = ({ data }) => {
 							<div className="progress-container">
 								<div
 									className="progress"
-									style={{ width: `${codewarRankCompare}%` }}
+									style={{
+										width: `${codewarRankCompare}%`,
+										backgroundColor: `${handleColor(
+											codewarRankCompare,
+											"progress"
+										)}`,
+									}}
 								></div>
 							</div>
 						</div>
@@ -89,7 +131,13 @@ const Overview = ({ data }) => {
 							<div className="progress-container">
 								<div
 									className="progress"
-									style={{ width: `${codewarPointsCompare}` }}
+									style={{
+										width: `${codewarPointsCompare}`,
+										backgroundColor: `${handleColor(
+											codewarPointsCompare,
+											"progress"
+										)}`,
+									}}
 								></div>
 							</div>
 						</div>
