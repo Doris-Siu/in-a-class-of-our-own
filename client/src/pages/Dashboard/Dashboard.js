@@ -8,19 +8,23 @@ import SetMilestone from "./Components/SetMilestone/SetMilestone";
 import { useGlobalContext } from "../../Components/context";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import loadingGif from "../../Assets/loading.gif";
+
 
 const Dashboard = () => {
 	const [data, setData] = useState([]);
-	const [isLoading, setIsLoading] = useState(true);
+	const [loading, setLoading] = useState(true);
 	const [githubName, setGithubName] = useState(
 		useGlobalContext().globalgithubName
 	);
+	function latestData(x) {
+		setData(x.data);
+	}
 	useEffect(() => {
 		if (githubName) {
 			// Save a value in local storage
 			localStorage.setItem("githubName", githubName);
 		}
-
 		// Retrieve a value from local storage
 		const savedValue = localStorage.getItem("githubName");
 		setGithubName(savedValue);
@@ -28,16 +32,19 @@ const Dashboard = () => {
 		async function fetchData() {
 			try {
 				const response = await axios.get(`api/milestonestatus/${savedValue}`);
+				// const response = await axios.get("api/milestonestatus/8maziar");
 				console.log(response.data);
-				setData(response.data);
-				setTimeout(async () => {
-					const response2 = await axios.get(
-						`api/milestonestatus/${savedValue}`
-					);
-					console.log(response2.data);
-					setData(response2.data);
-					setIsLoading(false);
-				}, 300);
+				latestData(response);
+				// setData(response.data);
+				// setTimeout(async () => {
+				// 	const response2 = await axios.get(
+				// 		`api/milestonestatus/${savedValue}`
+				// 	);
+				// 	console.log(response2.data);
+				// 	setData(response2.data);
+				// 	setIsLoading(false);
+				// }, 300);
+				setLoading(false);
 			} catch (error) {
 				console.log(error);
 			}
@@ -45,11 +52,13 @@ const Dashboard = () => {
 		fetchData();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
-	if (isLoading) {
-		return <div>Loading...</div>;
-	}
-
+if (loading) {
+	return (
+		<div className="loadingPage">
+			<img src={loadingGif} alt="loading" className="loadingStatus" />
+		</div>
+	);
+}
 	return (
 		<div className="dashboard">
 			<DashboardHeader />
