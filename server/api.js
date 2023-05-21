@@ -103,24 +103,33 @@ router.post("/extracteddata", (req, res) => {
 	}
 });
 
-const extractData = () => {
-	getTrainees().then((trainees) => {
+const extractData = async () => {
+	let result = await getTrainees().then((trainees) => {
 		const today = new Date();
 		const promises = [];
-		trainees.forEach((trainee) => {
+		trainees.forEach(async (trainee) => {
 			const promise = getCodewarInfo(trainee.codewarsusername).then(
-				([rank, points]) => {
-					getGithubInfo(trainee.githubusername).then((githubPrs) => {
-						insertExtractedData(trainee.id, rank, points, githubPrs, today);
-					});
+				async ([rank, points]) => {
+					await getGithubInfo(trainee.githubusername).then(
+						async (githubPrs) => {
+							await insertExtractedData(
+								trainee.id,
+								rank,
+								points,
+								githubPrs,
+								today
+							);
+						}
+					);
 				}
 			);
 			promises.push(promise);
 		});
-		Promise.all(promises).then(() => {
-			return true;
+		return Promise.allSettled(promises).then(([result]) => {
+			return result;
 		});
 	});
+	return result;
 };
 
 const getTrainees = async () => {
@@ -227,15 +236,20 @@ router.post("/milestone", (req, res) => {
 });
 
 // Add user details (input) inside database
-router.post("/register", (req, res) => {
+router.post("/register", async (req, res) => {
 	try {
 		const { username, github, cohort, codewars } = req.body;
-		db.query(
-			"INSERT INTO trainee (displayname, githubusername, cohort, codewarsusername) VALUES ($1, $2, $3, $4)",
-			[username, github, cohort, codewars]
-		)
-			.then(extractData())
-			.then(res.status(200).json({ success: true }));
+		await db
+			.query(
+				"INSERT INTO trainee (displayname, githubusername, cohort, codewarsusername) VALUES ($1, $2, $3, $4)",
+				[username, github, cohort, codewars]
+			)
+			.then(async () => {
+				return await extractData();
+			})
+			.then(() => {
+				res.status(200).json({ success: true });
+			});
 	} catch (err) {
 		res.status(500).json({ message: "Server error" });
 	}
@@ -277,21 +291,14 @@ router.get("/getGithubUserData", async function (req, res) {
 // milestone status endpoint and related functions -- VERY IMPORTANT COMPILATION OF MULTIPLE TABLES, FILTER AND SEND DATA TO FRONTEND
 router.get("/milestonestatus/:githubusername", async (req, res) => {
 	try {
-		const gitUser = req.params.githubusername;
+		const githubusername = req.params.githubusername;
 		const cyfMilestone = await getLastestCyfMilestone();
 		let latestFromExtracteddata, filterGitUserFromLastestExtracteddata;
-		let i = 0;
-		do {
-			latestFromExtracteddata = await getLatestExtractedData();
-			// ADDED filter by github name from latestExtracteddata array which contains all trainees
-			filterGitUserFromLastestExtracteddata = latestFromExtracteddata.filter(
-				(gitUserName) => gitUserName.githubusername === gitUser
-			);
-			i++;
-			if (i > 3) {
-				break;
-			}
-		} while (filterGitUserFromLastestExtracteddata.length === 0);
+		latestFromExtracteddata = await getLatestExtractedData();
+		// ADDED filter by github name from latestExtracteddata array which contains all trainees
+		filterGitUserFromLastestExtracteddata = latestFromExtracteddata.filter(
+			(gitUser) => gitUser.githubusername === githubusername
+		);
 
 		// ADDED could we send an array of 3 items ??
 		const sendList = [
@@ -327,13 +334,10 @@ const getLastestCyfMilestone = async () => {
 
 // Function to get latest info from exracteddata table
 const getLatestExtractedData = async () => {
-	const results = await db.query(
-		"SELECT MAX(timestamp) AS latest_date FROM extracteddata"
-	);
-	const date = results.rows[0].latest_date;
 	const msResult = await db.query(
-		"SELECT t.*, e.* FROM extracteddata as e inner join trainee as t on e.traineeid = t.id WHERE timestamp = $1",
-		[date]
+		"select t.githubusername, t.codewarsusername, t.displayname, t.cohort, e.* from trainee t inner join (" +
+			"select traineeid, max(id) as et_id from extracteddata group by traineeid) as et on t.id = et.traineeid " +
+			"join extracteddata e on et_id = e.id;"
 	);
 	return msResult.rows;
 };
