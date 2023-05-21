@@ -34,8 +34,16 @@ h2 {
 	color: var(--black);
 	font-size: 0.7rem;
 }
-
-@media only screen and (min-width: 900px) {
+.adjust-responise {
+	display: none;
+}
+@media only screen and (max-width: 980px) {
+	
+	.banner-bg {
+		margin: 12% 0 ;
+		height: 38vh;
+		z-index: 1;
+	}
 	.banner-text {
 		top: 30%;
 	}
