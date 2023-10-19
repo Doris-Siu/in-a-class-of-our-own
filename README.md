@@ -1,37 +1,24 @@
-# Starter Kit
+# In a Class of Our Own
+This is a responsive and user-friendly web application where trainees at CodeYourFuture(CYF) can log in with their GitHub account to check their progress, including their GitHub PRs linked to CYF coursework, Codewar rank, and Codewar point. 
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy)
+The data will be compared with a specific algorithm behind the scenes (according to the rule set by CYF on calculating trainees' milestones) and a milestone status will be returned to indicate where the trainee is at - if they are beyond/at/behind the milestone. All trainees' data will be stored in the database. 
 
-- [x] Full stack ES8+ with [Babel]
-- [x] [Node] LTS support (verified working on 14.x, 16.x and 18.x LTS releases)
-- [x] [Express] server
-- [x] Logging with [Winston] and [Morgan]
-- [x] [React] client with [Webpack]
-- [x] Client-side routing with [React Router]
-- [x] Linting with [ESLint] and [Prettier]
-- [x] Dev mode (watch modes for client and server, proxy to avoid CORS issues)
-- [x] Production build (single deployment artifact, React loaded via CDN)
-- [x] [Render] deployment
-- [x] [Cloud Foundry] deployment
-- [x] [Docker] build
-- [x] [Postgres] database with [node-postgres]
+![github](https://github.com/Doris-Siu/in-a-class-of-our-own/assets/107772913/6c6b41cc-818b-4205-9379-835a8a200083)
 
-## Setup
+![register](https://github.com/Doris-Siu/in-a-class-of-our-own/assets/107772913/75b96a82-8d70-492e-bad5-f9a559f1c65d)
 
-> **Note** if you have _any problems_ setting up the starter kit, see the [wiki] and, if still not solved, post to
-> [`#cyf-full-stack-starter-kit` in Slack][2].
+![dashboard](https://github.com/Doris-Siu/in-a-class-of-our-own/assets/107772913/01d07742-364d-4271-8b08-72653ac581b4)
 
-Pick one member of the team to own the repository and pipeline. That person should do the following:
 
-1.  Click the "Use this template" button above (see [GitHub's docs][1]) to create your team repository and name it something appropriate for your project.
-    - Your repo should say _"generated from"_, **not** _"forked from"_, _"CodeYourFuture/cyf-final-project-starter-kit"_ at the top
-2.  In your repo, click the "Deploy to Render" button at the top of the README and log in using GitHub when prompted.
-3.  Fill in a service group name for your application and then click "Apply".
-4.  Once it has deployed successfully, click the "managed resources" link to view the application details.
+## Technologies
+- React.js
+- JavaScript
+- CSS
+- Express.js
+- Node.js
+- Postgresql
+- OAuth
 
-Whenever you commit to main (or e.g. merge a [pull request]) it will get automatically deployed!
-
-You should now make sure all of the project team are [collaborators] on the repository.
 
 ## Scripts
 
@@ -65,6 +52,7 @@ principles are followed:
 - Code must be reviewed by senior developers before being pushed to production;
 - APIs must be secure. Make sure we are not handling security on the frontend.
 
+
 ### Troubleshooting
 
 See the guidance in the [wiki].
@@ -89,3 +77,7 @@ See the guidance in the [wiki].
 [Webpack]: https://webpack.js.org/
 [wiki]: https://github.com/textbook/starter-kit/wiki
 [Winston]: https://github.com/winstonjs/winston
+
+## License
+
+This project is licensed under the [MIT](https://choosealicense.com/licenses/mit/)
